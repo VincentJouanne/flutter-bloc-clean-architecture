@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/core/app/app.dart';
 import 'package:flutter_clean_architecture/core/app/application/app_bloc_observer.dart';
-import 'package:flutter_clean_architecture/infrastructure/authentication/adapters/real/firebase_authentication_gateway.dart';
+import 'package:flutter_clean_architecture/core/config/firebase_options.dart';
+import 'package:flutter_clean_architecture/dependency_container.dart';
 
 Future<void> main() {
   return BlocOverrides.runZoned(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      await Firebase.initializeApp();
-      final authenticationGateway = FirebaseAuthenticationGateway();
-      await authenticationGateway.user.first;
-      runApp(App(authenticationGateway: authenticationGateway));
+      await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform);
+      await resolveDependencies();
+
+      runApp(App(authenticationGateway: getIt()));
     },
     blocObserver: AppBlocObserver(),
   );
