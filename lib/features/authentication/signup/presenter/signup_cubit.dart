@@ -64,7 +64,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
-    final result = await _signUpUseCase.call(
+    final result = await _signUpUseCase.execute(
         params: SignUpUseCaseParams(
       email: state.email.value,
       password: state.password.value,
