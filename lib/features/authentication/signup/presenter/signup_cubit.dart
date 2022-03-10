@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_clean_architecture/features/authentication/common/domain/domain.dart';
 import 'package:flutter_clean_architecture/features/authentication/signup/presenter/signup_state.dart';
-import 'package:flutter_clean_architecture/features/authentication/signup/use-cases/signup_usecase.dart';
+import 'package:flutter_clean_architecture/features/authentication/signup/use_cases/signup_usecase.dart';
 import 'package:flutter_clean_architecture/infrastructure/authentication/adapters/exceptions/sign_up_with_email_and_password_exception.dart';
 import 'package:formz/formz.dart';
 

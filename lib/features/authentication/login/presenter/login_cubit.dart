@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_clean_architecture/features/authentication/common/domain/domain.dart';
-import 'package:flutter_clean_architecture/features/authentication/login/use-cases/login_with_email_and_password_usecase.dart';
-import 'package:flutter_clean_architecture/features/authentication/login/use-cases/login_with_google_usecase.dart';
+import 'package:flutter_clean_architecture/features/authentication/login/use_cases/login_with_email_and_password_usecase.dart';
+import 'package:flutter_clean_architecture/features/authentication/login/use_cases/login_with_google_usecase.dart';
 import 'package:flutter_clean_architecture/infrastructure/authentication/adapters/exceptions/login_with_email_and_password_exception.dart';
 import 'package:flutter_clean_architecture/infrastructure/authentication/adapters/exceptions/login_with_google_exception.dart';
 import 'package:formz/formz.dart';

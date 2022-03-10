@@ -23,7 +23,11 @@ class SignUpUseCase implements UseCase<void, SignUpUseCaseParams> {
             ))
         .attempt()
         .map((either) => either.leftMap((obj) {
-              return obj as Exception;
+              try {
+                return obj as Exception;
+              } catch (e) {
+                throw obj;
+              }
             }))
         .run()
         .whenComplete(() => right);
