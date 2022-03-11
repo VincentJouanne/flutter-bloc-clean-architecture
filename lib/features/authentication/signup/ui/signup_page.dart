@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture/dependency_container.dart';
-import 'package:flutter_clean_architecture/features/authentication/signup/presenter/signup_cubit.dart';
+import 'package:flutter_clean_architecture/features/authentication/signup/bloc/signup_cubit.dart';
 import 'package:flutter_clean_architecture/features/authentication/signup/ui/widgets/signup_form.dart';
 
 class SignUpPage extends StatelessWidget {

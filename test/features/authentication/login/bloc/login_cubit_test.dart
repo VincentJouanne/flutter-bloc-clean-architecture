@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_clean_architecture/features/authentication/common/domain/domain.dart';
-import 'package:flutter_clean_architecture/features/authentication/login/presenter/login_cubit.dart';
+import 'package:flutter_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
 import 'package:flutter_clean_architecture/features/authentication/login/use_cases/login_with_email_and_password_usecase.dart';
 import 'package:flutter_clean_architecture/features/authentication/login/use_cases/login_with_google_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
