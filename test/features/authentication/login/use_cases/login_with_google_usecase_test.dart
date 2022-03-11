@@ -11,16 +11,16 @@ void main() {
       when(() => mockAuthenticationGateway.logInWithGoogle())
           .thenAnswer((_) async => throw Exception());
 
-      final useCase = await LoginWithGoogleUseCase(mockAuthenticationGateway)
-          .execute(params: LoginWithGoogleUseCaseParams());
+      final useCase =
+          await LoginWithGoogleUseCase(mockAuthenticationGateway).execute();
 
       expect(useCase.isLeft(), true);
     });
 
     test('should return right if login with google succeed', () async {
       final authenticationGateway = InMemoryAuthenticationGateway();
-      final useCase = await LoginWithGoogleUseCase(authenticationGateway)
-          .execute(params: LoginWithGoogleUseCaseParams());
+      final useCase =
+          await LoginWithGoogleUseCase(authenticationGateway).execute();
 
       expect(useCase.isRight(), true);
     });

@@ -1,13 +1,18 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_clean_architecture/core/common/usecase.dart';
 import 'package:flutter_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 
-class LoginWithEmailAndPasswordUseCaseParams {
+class LoginWithEmailAndPasswordUseCaseParams extends Equatable {
   final String email;
   final String password;
 
   const LoginWithEmailAndPasswordUseCaseParams(
       {this.email = '', this.password = ''});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [email, password];
 }
 
 class LoginWithEmailAndPasswordUseCase
