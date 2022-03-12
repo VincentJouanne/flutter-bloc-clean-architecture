@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_clean_architecture/core/common/extensions.dart';
 import 'package:flutter_clean_architecture/core/common/usecase.dart';
 import 'package:flutter_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 
@@ -22,18 +23,8 @@ class SignUpUseCase implements UseCase<void, SignUpUseCaseParams> {
   Future<Either<Exception, void>> execute(
       {required SignUpUseCaseParams params}) async {
     return Task(() => _authenticationGateway.signUp(
-              email: params.email,
-              password: params.password,
-            ))
-        .attempt()
-        .map((either) => either.leftMap((obj) {
-              try {
-                return obj as Exception;
-              } catch (e) {
-                throw obj;
-              }
-            }))
-        .run()
-        .whenComplete(() => right);
+          email: params.email,
+          password: params.password,
+        )).attempt().mapLeftToException().run().whenComplete(() => right);
   }
 }
