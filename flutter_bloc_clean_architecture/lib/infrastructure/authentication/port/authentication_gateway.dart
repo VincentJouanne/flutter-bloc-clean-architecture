@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'dart:async';
 
 import 'package:flutter_clean_architecture/infrastructure/authentication/adapters/models/user.dart';

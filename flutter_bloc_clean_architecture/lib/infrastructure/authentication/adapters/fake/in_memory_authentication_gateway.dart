@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:flutter_clean_architecture/infrastructure/authentication/adapters/models/user.dart';
 import 'package:flutter_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 

@@ -26,14 +26,14 @@ class SignUpState extends Equatable {
     Email? email,
     Password? password,
     ConfirmedPassword? confirmedPassword,
-    FormzStatus? status,
+    required FormzStatus status,
     String? errorMessage,
   }) {
     return SignUpState(
       email: email ?? this.email,
       password: password ?? this.password,
       confirmedPassword: confirmedPassword ?? this.confirmedPassword,
-      status: status ?? this.status,
+      status: status,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }

@@ -19,13 +19,13 @@ class LoginState extends Equatable {
   LoginState copyWith({
     Email? email,
     Password? password,
-    FormzStatus? status,
+    required FormzStatus status,
     String? errorMessage,
   }) {
     return LoginState(
       email: email ?? this.email,
       password: password ?? this.password,
-      status: status ?? this.status,
+      status: status,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
