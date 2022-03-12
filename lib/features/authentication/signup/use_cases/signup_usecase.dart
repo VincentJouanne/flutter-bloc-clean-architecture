@@ -25,6 +25,6 @@ class SignUpUseCase implements UseCase<void, SignUpUseCaseParams> {
     return Task(() => _authenticationGateway.signUp(
           email: params.email,
           password: params.password,
-        )).attempt().mapLeftToException().run().whenComplete(() => right);
+        )).attempt().mapLeftToException().run();
   }
 }

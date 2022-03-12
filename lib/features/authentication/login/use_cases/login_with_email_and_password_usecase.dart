@@ -24,10 +24,7 @@ class LoginWithEmailAndPasswordUseCase
   Future<Either<Exception, void>> execute(
       {required LoginWithEmailAndPasswordUseCaseParams params}) async {
     return Task(() => _authenticationGateway.logInWithEmailAndPassword(
-            email: params.email, password: params.password))
-        .attempt()
-        .mapLeftToException()
-        .run()
-        .whenComplete(() => right);
+        email: params.email,
+        password: params.password)).attempt().mapLeftToException().run();
   }
 }

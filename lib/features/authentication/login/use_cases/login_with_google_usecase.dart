@@ -18,7 +18,6 @@ class LoginWithGoogleUseCase implements UseCaseNoParams<void> {
     return Task(() => _authenticationGateway.logInWithGoogle())
         .attempt()
         .mapLeftToException()
-        .run()
-        .whenComplete(() => right);
+        .run();
   }
 }
