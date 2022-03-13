@@ -31,10 +31,6 @@
 .pub/
 /build/
 
-
-# Firebase related
-**/core/config/firebase_options.dart
-
 # Android related
 **/android/app/google-services.json
 
