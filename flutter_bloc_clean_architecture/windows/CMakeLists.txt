@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(flutter_clean_architecture LANGUAGES CXX)
+project(flutter_bloc_clean_architecture LANGUAGES CXX)
 
-set(BINARY_NAME "flutter_clean_architecture")
+set(BINARY_NAME "flutter_bloc_clean_architecture")
 
 cmake_policy(SET CMP0063 NEW)
 

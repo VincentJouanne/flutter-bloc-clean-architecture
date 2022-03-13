@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_architecture/dependency_container.dart';
-import 'package:flutter_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
-import 'package:flutter_clean_architecture/features/authentication/login/ui/widgets/login_form.dart';
+import 'package:flutter_bloc_clean_architecture/dependency_container.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/login/ui/widgets/login_form.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);

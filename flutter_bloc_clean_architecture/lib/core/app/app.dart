@@ -1,9 +1,9 @@
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_architecture/core/app/application/app_bloc.dart';
-import 'package:flutter_clean_architecture/core/routing/routes.dart';
-import 'package:flutter_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
+import 'package:flutter_bloc_clean_architecture/core/app/application/app_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/core/routing/routes.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 
 class App extends StatelessWidget {
   const App({

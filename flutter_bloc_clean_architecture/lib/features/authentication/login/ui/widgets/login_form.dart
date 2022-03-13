@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
-import 'package:flutter_clean_architecture/features/authentication/signup/ui/signup_page.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/signup/ui/signup_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 

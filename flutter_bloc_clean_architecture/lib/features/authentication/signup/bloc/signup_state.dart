@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_clean_architecture/features/authentication/common/domain/domain.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/common/domain/domain.dart';
 import 'package:formz/formz.dart';
 
 enum ConfirmPasswordValidationError { invalid }

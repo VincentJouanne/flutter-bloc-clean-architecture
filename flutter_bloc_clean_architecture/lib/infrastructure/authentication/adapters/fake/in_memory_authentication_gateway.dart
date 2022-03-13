@@ -1,6 +1,6 @@
 // coverage:ignore-file
-import 'package:flutter_clean_architecture/infrastructure/authentication/adapters/models/user.dart';
-import 'package:flutter_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/models/user.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 
 class InMemoryAuthenticationGateway implements AuthenticationGateway {
   @override

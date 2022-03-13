@@ -1,6 +1,6 @@
-import 'package:flutter_clean_architecture/features/authentication/signup/use_cases/signup_usecase.dart';
-import 'package:flutter_clean_architecture/infrastructure/authentication/adapters/fake/in_memory_authentication_gateway.dart';
-import 'package:flutter_clean_architecture/infrastructure/authentication/adapters/fake/mock_authentication_gateway.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/signup/use_cases/signup_usecase.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/in_memory_authentication_gateway.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/mock_authentication_gateway.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,3 +1,3 @@
 # 🏛 Flutter Bloc Clean Architecture
 
-![FLutter Clean Architecture](./docs/flutter_clean_architecture.png)
+![FLutter Bloc Clean Architecture](./docs/flutter_bloc_clean_architecture.png)

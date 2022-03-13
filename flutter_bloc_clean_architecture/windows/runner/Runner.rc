@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "flutter_clean_architecture" "\0"
+            VALUE "FileDescription", "flutter_bloc_clean_architecture" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "flutter_clean_architecture" "\0"
+            VALUE "InternalName", "flutter_bloc_clean_architecture" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flutter_clean_architecture.exe" "\0"
-            VALUE "ProductName", "flutter_clean_architecture" "\0"
+            VALUE "OriginalFilename", "flutter_bloc_clean_architecture.exe" "\0"
+            VALUE "ProductName", "flutter_bloc_clean_architecture" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
