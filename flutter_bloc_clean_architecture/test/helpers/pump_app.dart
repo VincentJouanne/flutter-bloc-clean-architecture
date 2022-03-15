@@ -12,7 +12,7 @@ extension PumpApp on WidgetTester {
     return pumpWidget(
       BlocProvider(
         create: (_) => AppBloc(
-          authenticationRepository: getIt(),
+          authenticationGateway: getIt(),
         ),
         child: Builder(
           builder: ((context) {
