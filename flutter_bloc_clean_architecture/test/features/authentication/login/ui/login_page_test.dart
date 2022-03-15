@@ -89,7 +89,7 @@ void main() {
 
         await tester.pumpAndSettle();
 
-        // THEN he should be redirected to the home pag
+        // THEN he should be redirected to the home page
         expect(find.byType(HomePage), findsOneWidget);
       });
     });
@@ -113,6 +113,7 @@ void main() {
       resolveDependencies(
           mockAuthenticationGateway: _mockAuthenticationGateway);
     });
+    tearDown(() => getIt.popScope());
 
     testWidgets(
         '\n GIVEN an unknown user on the login page who has entered well formatted email and password'
