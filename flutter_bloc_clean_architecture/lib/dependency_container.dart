@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'dart:io';
 
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
