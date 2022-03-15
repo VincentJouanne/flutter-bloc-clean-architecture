@@ -7,8 +7,6 @@ import 'package:flutter_bloc_clean_architecture/features/authentication/login/ui
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
-  static Page page() => const MaterialPage<void>(child: LoginPage());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
