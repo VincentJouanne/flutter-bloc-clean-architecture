@@ -19,6 +19,8 @@ class AppState extends Equatable {
   final AppStatus status;
   final User user;
 
+  bool get isAuthenticated => status == AppStatus.authenticated;
+
   @override
   List<Object> get props => [status, user];
 }
