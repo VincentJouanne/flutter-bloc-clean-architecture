@@ -14,7 +14,7 @@ Future<void> main() {
           options: DefaultFirebaseOptions.currentPlatform);
       await resolveDependencies();
 
-      runApp(App(authenticationGateway: getIt()));
+      runApp(const App());
     },
     blocObserver: AppBlocObserver(),
   );

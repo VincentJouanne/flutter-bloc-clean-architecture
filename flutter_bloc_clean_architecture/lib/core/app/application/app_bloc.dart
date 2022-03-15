@@ -10,7 +10,7 @@ part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  AppBloc({required AuthenticationGateway authenticationGateway})
+  AppBloc(AuthenticationGateway authenticationGateway)
       : _authenticationGateway = authenticationGateway,
         super(
           authenticationGateway.currentUser.isNotEmpty

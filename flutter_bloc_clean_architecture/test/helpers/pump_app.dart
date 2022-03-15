@@ -11,8 +11,9 @@ extension PumpApp on WidgetTester {
   }) async {
     return pumpWidget(
       BlocProvider(
+        // TODO(vincent): investigate why I cannot use getIt<AppBloc>() here.
         create: (_) => AppBloc(
-          authenticationGateway: getIt(),
+          getIt(),
         ),
         child: Builder(
           builder: ((context) {
