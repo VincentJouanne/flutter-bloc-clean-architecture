@@ -4,6 +4,7 @@ import 'package:flutter_bloc_clean_architecture/core/app/application/app_bloc.da
 import 'package:flutter_bloc_clean_architecture/core/routing/router.dart';
 import 'package:flutter_bloc_clean_architecture/dependency_container.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:meta/meta.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp({String? initialLocation}) async {
@@ -25,4 +26,14 @@ extension PumpApp on WidgetTester {
       ),
     );
   }
+}
+
+@isTest
+void testUI(
+    {String given = '',
+    String when = '',
+    String then = '',
+    required WidgetTesterCallback callback}) {
+  return testWidgets(
+      '\nGIVEN: $given \n WHEN: $when \n THEN: $then \n', callback);
 }
