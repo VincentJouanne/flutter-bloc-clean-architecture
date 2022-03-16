@@ -19,132 +19,139 @@ void main() {
       });
       tearDownAll(() => getIt.popScope());
 
-      testWidgets(
-          '\n GIVEN the user is on the login page'
-          '\n WHEN he enters a badly formatted email'
-          '\n THEN he should see an error message', (tester) async {
-        // GIVEN the user is on the login page
-        await tester.pumpWidget(const MaterialApp(home: LoginPage()));
-        expect(find.byType(LoginPage), findsOneWidget);
+      testUI(
+          given: 'the user is on the login page',
+          when: 'he enters a badly formatted email',
+          then: 'he should see an error message',
+          callback: (tester) async {
+            // GIVEN the user is on the login page
+            await tester.pumpWidget(const MaterialApp(home: LoginPage()));
+            expect(find.byType(LoginPage), findsOneWidget);
 
-        const invalidEmail = 'invalid-email';
+            const invalidEmail = 'invalid-email';
 
-        final emailInput =
-            find.byKey(const Key('loginForm_emailInput_textField'));
+            final emailInput =
+                find.byKey(const Key('loginForm_emailInput_textField'));
 
-        // WHEN he enters a badly formatted email
-        await tester.enterText(emailInput, invalidEmail);
-        await tester.pump();
+            // WHEN he enters a badly formatted email
+            await tester.enterText(emailInput, invalidEmail);
+            await tester.pump();
 
-        // THEN he should see an error message
-        expect(find.text('invalid email'), findsOneWidget);
-      });
+            // THEN he should see an error message
+            expect(find.text('invalid email'), findsOneWidget);
+          });
 
-      testWidgets(
-          '\n GIVEN the user is on the login page and has entered a correct email'
-          '\n WHEN he enters a badly formatted password'
-          '\n THEN he should see an error message', (tester) async {
-        // GIVEN the user is on the login page and has entered a correct email
-        await tester.pumpWidget(const MaterialApp(home: LoginPage()));
-        expect(find.byType(LoginPage), findsOneWidget);
+      testUI(
+          given:
+              'the user is on the login page and has entered a correct email',
+          when: 'he enters a badly formatted password',
+          then: 'he should see an error message',
+          callback: (tester) async {
+            // GIVEN the user is on the login page and has entered a correct email
+            await tester.pumpWidget(const MaterialApp(home: LoginPage()));
+            expect(find.byType(LoginPage), findsOneWidget);
 
-        const validEmail = 'valid@gmail.com';
-        const invalidPassword = 'invalid-password';
-        final emailInput =
-            find.byKey(const Key('loginForm_emailInput_textField'));
+            const validEmail = 'valid@gmail.com';
+            const invalidPassword = 'invalid-password';
+            final emailInput =
+                find.byKey(const Key('loginForm_emailInput_textField'));
 
-        final passwordInput =
-            find.byKey(const Key('loginForm_passwordInput_textField'));
-        await tester.enterText(emailInput, validEmail);
+            final passwordInput =
+                find.byKey(const Key('loginForm_passwordInput_textField'));
+            await tester.enterText(emailInput, validEmail);
 
-        // WHEN he enters a badly formatted password
-        await tester.enterText(passwordInput, invalidPassword);
-        await tester.pump();
+            // WHEN he enters a badly formatted password
+            await tester.enterText(passwordInput, invalidPassword);
+            await tester.pump();
 
-        // THEN he should see an error message
-        expect(find.text('invalid password'), findsOneWidget);
-      });
+            // THEN he should see an error message
+            expect(find.text('invalid password'), findsOneWidget);
+          });
 
-      testWidgets(
-          '\n GIVEN an existing user on the login page who has entered well formatted email and password'
-          '\n WHEN he clicks on login'
-          '\n THEN he should be redirected to the home page', (tester) async {
-        // GIVEN an existing user on the login page who has entered well formatted email and password
-        await tester.pumpApp(initialLocation: Routes.login);
-        expect(find.byType(LoginPage), findsOneWidget);
+      testUI(
+          given:
+              'an existing user on the login page who has entered well formatted email and password',
+          when: 'he clicks on login',
+          then: 'he should be redirected to the home page',
+          callback: (tester) async {
+            // GIVEN an existing user on the login page who has entered well formatted email and password
+            await tester.pumpApp(initialLocation: Routes.login);
+            expect(find.byType(LoginPage), findsOneWidget);
 
-        const validEmail = 'valid@gmail.com';
-        const valisPassword = 'Password123';
-        final emailInput =
-            find.byKey(const Key('loginForm_emailInput_textField'));
-        final passwordInput =
-            find.byKey(const Key('loginForm_passwordInput_textField'));
+            const validEmail = 'valid@gmail.com';
+            const valisPassword = 'Password123';
+            final emailInput =
+                find.byKey(const Key('loginForm_emailInput_textField'));
+            final passwordInput =
+                find.byKey(const Key('loginForm_passwordInput_textField'));
 
-        await tester.enterText(emailInput, validEmail);
-        await tester.enterText(passwordInput, valisPassword);
-        await tester.pump();
+            await tester.enterText(emailInput, validEmail);
+            await tester.enterText(passwordInput, valisPassword);
+            await tester.pump();
 
-        // WHEN he clicks on login
-        await tester
-            .tap(find.byKey(const Key("loginForm_continue_raisedButton")));
+            // WHEN he clicks on login
+            await tester
+                .tap(find.byKey(const Key("loginForm_continue_raisedButton")));
 
-        await tester.pumpAndSettle();
+            await tester.pumpAndSettle();
 
-        // THEN he should be redirected to the home page
-        expect(find.byType(HomePage), findsOneWidget);
-      });
+            // THEN he should be redirected to the home page
+            expect(find.byType(HomePage), findsOneWidget);
+          });
     });
-  });
 
-  group('Failing cases', () {
-    setUp(() {
-      getIt.pushNewScope();
+    group('Failing cases', () {
+      setUp(() {
+        getIt.pushNewScope();
 
-      final _mockAuthenticationGateway = MockAuthenticationGateway();
-      when(() => _mockAuthenticationGateway.logInWithEmailAndPassword(
-          email: 'valid@gmail.com',
-          password: 'Password123')).thenAnswer((_) async => throw Exception());
+        final _mockAuthenticationGateway = MockAuthenticationGateway();
+        when(() => _mockAuthenticationGateway.logInWithEmailAndPassword(
+                email: 'valid@gmail.com', password: 'Password123'))
+            .thenAnswer((_) async => throw Exception());
 
-      when(() => _mockAuthenticationGateway.user)
-          .thenAnswer((_) => Stream.value(User.empty));
+        when(() => _mockAuthenticationGateway.user)
+            .thenAnswer((_) => Stream.value(User.empty));
 
-      when(() => _mockAuthenticationGateway.currentUser)
-          .thenAnswer((_) => User.empty);
+        when(() => _mockAuthenticationGateway.currentUser)
+            .thenAnswer((_) => User.empty);
 
-      resolveDependencies(
-          mockAuthenticationGateway: _mockAuthenticationGateway);
-    });
-    tearDown(() => getIt.popScope());
+        resolveDependencies(
+            mockAuthenticationGateway: _mockAuthenticationGateway);
+      });
+      tearDown(() => getIt.popScope());
 
-    testWidgets(
-        '\n GIVEN an unknown user on the login page who has entered well formatted email and password'
-        '\n WHEN he clicks on login'
-        '\n THEN he should not be redirected to the home page and see an error message',
-        (tester) async {
-      // GIVEN an unknown user on the login page who has entered well formatted email and password
-      await tester.pumpApp(initialLocation: Routes.login);
-      expect(find.byType(LoginPage), findsOneWidget);
+      testUI(
+          given:
+              'an unknown user on the login page who has entered well formatted email and password',
+          when: 'he clicks on login',
+          then:
+              'he should not be redirected to the home page and see an error message',
+          callback: (tester) async {
+            // GIVEN an unknown user on the login page who has entered well formatted email and password
+            await tester.pumpApp(initialLocation: Routes.login);
+            expect(find.byType(LoginPage), findsOneWidget);
 
-      const validEmail = 'valid@gmail.com';
-      const valisPassword = 'Password123';
-      final emailInput =
-          find.byKey(const Key('loginForm_emailInput_textField'));
-      final passwordInput =
-          find.byKey(const Key('loginForm_passwordInput_textField'));
+            const validEmail = 'valid@gmail.com';
+            const valisPassword = 'Password123';
+            final emailInput =
+                find.byKey(const Key('loginForm_emailInput_textField'));
+            final passwordInput =
+                find.byKey(const Key('loginForm_passwordInput_textField'));
 
-      await tester.enterText(emailInput, validEmail);
-      await tester.enterText(passwordInput, valisPassword);
-      await tester.pump();
+            await tester.enterText(emailInput, validEmail);
+            await tester.enterText(passwordInput, valisPassword);
+            await tester.pump();
 
-      // WHEN he clicks on login
-      await tester
-          .tap(find.byKey(const Key("loginForm_continue_raisedButton")));
+            // WHEN he clicks on login
+            await tester
+                .tap(find.byKey(const Key("loginForm_continue_raisedButton")));
 
-      await tester.pumpAndSettle();
+            await tester.pumpAndSettle();
 
-      // THEN he should not be redirected to the home page and see an error message
-      expect(find.byType(HomePage), findsNothing);
-      expect(find.text("Authentication Failure"), findsOneWidget);
+            // THEN he should not be redirected to the home page and see an error message
+            expect(find.byType(HomePage), findsNothing);
+            expect(find.text("Authentication Failure"), findsOneWidget);
+          });
     });
   });
 }
