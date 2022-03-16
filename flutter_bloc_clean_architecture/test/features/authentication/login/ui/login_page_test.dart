@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_clean_architecture/core/routing/router.dart';
 import 'package:flutter_bloc_clean_architecture/dependency_container.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/ui/login_page.dart';
 import 'package:flutter_bloc_clean_architecture/features/home/ui/home_page.dart';
@@ -69,7 +70,7 @@ void main() {
           '\n WHEN he clicks on login'
           '\n THEN he should be redirected to the home page', (tester) async {
         // GIVEN an existing user on the login page who has entered well formatted email and password
-        await tester.pumpApp(builder: (child) => const LoginPage());
+        await tester.pumpApp(initialLocation: Routes.login);
         expect(find.byType(LoginPage), findsOneWidget);
 
         const validEmail = 'valid@gmail.com';
@@ -121,7 +122,7 @@ void main() {
         '\n THEN he should not be redirected to the home page and see an error message',
         (tester) async {
       // GIVEN an unknown user on the login page who has entered well formatted email and password
-      await tester.pumpApp(builder: (child) => const LoginPage());
+      await tester.pumpApp(initialLocation: Routes.login);
       expect(find.byType(LoginPage), findsOneWidget);
 
       const validEmail = 'valid@gmail.com';

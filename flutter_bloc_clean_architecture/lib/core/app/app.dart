@@ -22,7 +22,7 @@ class AppView extends StatelessWidget {
   const AppView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _appRouter = router(context);
+    final _appRouter = router(context, null);
 
     return MaterialApp.router(
       routerDelegate: _appRouter.routerDelegate,

@@ -6,9 +6,7 @@ import 'package:flutter_bloc_clean_architecture/dependency_container.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 extension PumpApp on WidgetTester {
-  Future<void> pumpApp({
-    required Widget Function(Widget child) builder,
-  }) async {
+  Future<void> pumpApp({String? initialLocation}) async {
     return pumpWidget(
       BlocProvider(
         // TODO(vincent): investigate why I cannot use getIt<AppBloc>() here.
@@ -17,7 +15,7 @@ extension PumpApp on WidgetTester {
         ),
         child: Builder(
           builder: ((context) {
-            final _appRouter = router(context);
+            final _appRouter = router(context, initialLocation);
             return MaterialApp.router(
               routerDelegate: _appRouter.routerDelegate,
               routeInformationParser: _appRouter.routeInformationParser,

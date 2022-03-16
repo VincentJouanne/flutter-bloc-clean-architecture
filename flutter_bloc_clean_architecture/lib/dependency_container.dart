@@ -16,14 +16,15 @@ import 'package:get_it/get_it.dart';
 final getIt = GetIt.instance;
 
 resolveDependencies(
-    {MockAuthenticationGateway? mockAuthenticationGateway}) async {
+    {MockAuthenticationGateway? mockAuthenticationGateway,
+    bool? isAuthenticated}) async {
   final isTesting = Platform.environment.containsKey('FLUTTER_TEST');
 
   // Infrastructure
   final authenticationGateway = _resolveDependencie<AuthenticationGateway>(
       isTesting,
       mockAuthenticationGateway,
-      InMemoryAuthenticationGateway(),
+      InMemoryAuthenticationGateway(isAuthenticated: isAuthenticated ?? false),
       isTesting ? null : FirebaseAuthenticationGateway());
 
   await authenticationGateway.user.first;

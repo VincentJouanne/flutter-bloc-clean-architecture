@@ -7,8 +7,8 @@ import 'package:flutter_bloc_clean_architecture/features/authentication/signup/u
 import 'package:flutter_bloc_clean_architecture/features/home/ui/home_page.dart';
 import 'package:go_router/go_router.dart';
 
-GoRouter router(BuildContext context) => GoRouter(
-    initialLocation: Routes.login,
+GoRouter router(BuildContext context, String? initialLocation) => GoRouter(
+    initialLocation: initialLocation ?? Routes.login,
     debugLogDiagnostics: true,
     refreshListenable: GoRouterRefreshStream(context.read<AppBloc>().stream),
     routes: [
