@@ -17,163 +17,199 @@ void main() {
   late final signUpUseCase = MockSignUpUseCase();
   group('$SignUpCubit', () {
     blocTest<SignUpCubit, SignUpState>(
-      'should be in invalid status and prevent from sending form if email is badly formatted',
+      '''should be in invalid status and prevent from sending form if email is badly formatted''',
       build: () => SignUpCubit(signUpUseCase),
       act: (cubit) {
-        cubit.emailChanged('foo');
-        cubit.signUpFormSubmitted();
+        cubit
+          ..emailChanged('foo')
+          ..signUpFormSubmitted();
       },
       expect: () => [
         const SignUpState(
-            email: Email.dirty('foo'),
-            password: Password.pure(),
-            confirmedPassword: ConfirmedPassword.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty('foo'),
+          status: FormzStatus.invalid,
+        ),
       ],
     );
     blocTest<SignUpCubit, SignUpState>(
-      'should be in invalid status and prevent from sending form if password is too simple',
+      '''should be in invalid status and prevent from sending form if password is too simple''',
       build: () => SignUpCubit(signUpUseCase),
       act: (cubit) {
-        cubit.emailChanged('me@gmail.com');
-        cubit.passwordChanged('123');
-        cubit.signUpFormSubmitted();
+        cubit
+          ..emailChanged('me@gmail.com')
+          ..passwordChanged('123')
+          ..signUpFormSubmitted();
       },
       expect: () => [
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.pure(),
-            confirmedPassword: ConfirmedPassword.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty('me@gmail.com'),
+          status: FormzStatus.invalid,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('123'),
-            confirmedPassword: ConfirmedPassword.dirty(password: ''),
-            status: FormzStatus.invalid)
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('123'),
+          confirmedPassword: ConfirmedPassword.dirty(password: ''),
+          status: FormzStatus.invalid,
+        )
       ],
     );
 
     blocTest<SignUpCubit, SignUpState>(
-      'should be in invalid status and prevent from sending form if password and confirmed password do not match',
+      '''should be in invalid status and prevent from sending form if password and confirmed password do not match''',
       build: () => SignUpCubit(signUpUseCase),
       act: (cubit) {
-        cubit.emailChanged('me@gmail.com');
-        cubit.passwordChanged('Password123');
-        cubit.confirmedPasswordChanged('Password456');
-        cubit.signUpFormSubmitted();
+        cubit
+          ..emailChanged('me@gmail.com')
+          ..passwordChanged('Password123')
+          ..confirmedPasswordChanged('Password456')
+          ..signUpFormSubmitted();
       },
       expect: () => [
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.pure(),
-            confirmedPassword: ConfirmedPassword.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty('me@gmail.com'),
+          status: FormzStatus.invalid,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(password: ''),
-            status: FormzStatus.invalid),
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(password: ''),
+          status: FormzStatus.invalid,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(
-                password: 'Password123', value: 'Password456'),
-            status: FormzStatus.invalid)
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(
+            password: 'Password123',
+            value: 'Password456',
+          ),
+          status: FormzStatus.invalid,
+        )
       ],
     );
 
     blocTest<SignUpCubit, SignUpState>(
       'should be in error status with a custom error message if signup failed',
       setUp: () {
-        when(() => signUpUseCase.execute(
+        when(
+          () => signUpUseCase.execute(
             params: const SignUpUseCaseParams(
-                email: 'me@gmail.com',
-                password: 'Password123'))).thenAnswer((_) async => left(
-            SignUpWithEmailAndPasswordException.fromCode('invalid-email')));
+              email: 'me@gmail.com',
+              password: 'Password123',
+            ),
+          ),
+        ).thenAnswer(
+          (_) async => left(
+            SignUpWithEmailAndPasswordException.fromCode('invalid-email'),
+          ),
+        );
       },
       build: () => SignUpCubit(signUpUseCase),
       act: (cubit) {
-        cubit.emailChanged('me@gmail.com');
-        cubit.passwordChanged('Password123');
-        cubit.confirmedPasswordChanged('Password123');
-        cubit.signUpFormSubmitted();
+        cubit
+          ..emailChanged('me@gmail.com')
+          ..passwordChanged('Password123')
+          ..confirmedPasswordChanged('Password123')
+          ..signUpFormSubmitted();
       },
       expect: () => [
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.pure(),
-            confirmedPassword: ConfirmedPassword.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty('me@gmail.com'),
+          status: FormzStatus.invalid,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(password: ''),
-            status: FormzStatus.invalid),
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(password: ''),
+          status: FormzStatus.invalid,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(
-                password: 'Password123', value: 'Password123'),
-            status: FormzStatus.valid),
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(
+            password: 'Password123',
+            value: 'Password123',
+          ),
+          status: FormzStatus.valid,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(
-                password: 'Password123', value: 'Password123'),
-            status: FormzStatus.submissionInProgress),
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(
+            password: 'Password123',
+            value: 'Password123',
+          ),
+          status: FormzStatus.submissionInProgress,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(
-                password: 'Password123', value: 'Password123'),
-            errorMessage: 'Email is not valid or badly formatted.',
-            status: FormzStatus.submissionFailure)
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(
+            password: 'Password123',
+            value: 'Password123',
+          ),
+          errorMessage: 'Email is not valid or badly formatted.',
+          status: FormzStatus.submissionFailure,
+        )
       ],
     );
     blocTest<SignUpCubit, SignUpState>(
       'should be in success status if signup succeed',
       setUp: () {
-        when(() => signUpUseCase.execute(
-                params: const SignUpUseCaseParams(
-                    email: 'me@gmail.com', password: 'Password123')))
-            .thenAnswer((_) async => const Right(null));
+        when(
+          () => signUpUseCase.execute(
+            params: const SignUpUseCaseParams(
+              email: 'me@gmail.com',
+              password: 'Password123',
+            ),
+          ),
+        ).thenAnswer((_) async => const Right(null));
       },
       build: () => SignUpCubit(signUpUseCase),
       act: (cubit) {
-        cubit.emailChanged('me@gmail.com');
-        cubit.passwordChanged('Password123');
-        cubit.confirmedPasswordChanged('Password123');
-        cubit.signUpFormSubmitted();
+        cubit
+          ..emailChanged('me@gmail.com')
+          ..passwordChanged('Password123')
+          ..confirmedPasswordChanged('Password123')
+          ..signUpFormSubmitted();
       },
       expect: () => [
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.pure(),
-            confirmedPassword: ConfirmedPassword.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty('me@gmail.com'),
+          status: FormzStatus.invalid,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(password: ''),
-            status: FormzStatus.invalid),
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(password: ''),
+          status: FormzStatus.invalid,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(
-                password: 'Password123', value: 'Password123'),
-            status: FormzStatus.valid),
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(
+            password: 'Password123',
+            value: 'Password123',
+          ),
+          status: FormzStatus.valid,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(
-                password: 'Password123', value: 'Password123'),
-            status: FormzStatus.submissionInProgress),
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(
+            password: 'Password123',
+            value: 'Password123',
+          ),
+          status: FormzStatus.submissionInProgress,
+        ),
         const SignUpState(
-            email: Email.dirty('me@gmail.com'),
-            password: Password.dirty('Password123'),
-            confirmedPassword: ConfirmedPassword.dirty(
-                password: 'Password123', value: 'Password123'),
-            status: FormzStatus.submissionSuccess)
+          email: Email.dirty('me@gmail.com'),
+          password: Password.dirty('Password123'),
+          confirmedPassword: ConfirmedPassword.dirty(
+            password: 'Password123',
+            value: 'Password123',
+          ),
+          status: FormzStatus.submissionSuccess,
+        )
       ],
     );
   });

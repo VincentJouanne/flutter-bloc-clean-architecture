@@ -62,5 +62,6 @@ T _resolveDependencie<T>(bool isTesting, T? mock, T? fake, T? real) {
     return fake;
   }
 
+  // ignore: null_check_on_nullable_type_parameter
   return real!;
 }

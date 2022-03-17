@@ -11,8 +11,9 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(
-      this._loginWithEmailAndPasswordUseCase, this._loginWithGoogleUseCase)
-      : super(const LoginState());
+    this._loginWithEmailAndPasswordUseCase,
+    this._loginWithGoogleUseCase,
+  ) : super(const LoginState());
 
   final LoginWithEmailAndPasswordUseCase _loginWithEmailAndPasswordUseCase;
   final LoginWithGoogleUseCase _loginWithGoogleUseCase;
@@ -42,23 +43,27 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     final result = await _loginWithEmailAndPasswordUseCase.execute(
-        params: LoginWithEmailAndPasswordUseCaseParams(
-      email: state.email.value,
-      password: state.password.value,
-    ));
+      params: LoginWithEmailAndPasswordUseCaseParams(
+        email: state.email.value,
+        password: state.password.value,
+      ),
+    );
 
-    result.fold((l) {
-      if (l is LogInWithEmailAndPasswordException) {
-        emit(
-          state.copyWith(
-            errorMessage: l.message,
-            status: FormzStatus.submissionFailure,
-          ),
-        );
-      } else {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
-      }
-    }, (r) => emit(state.copyWith(status: FormzStatus.submissionSuccess)));
+    result.fold(
+      (l) {
+        if (l is LogInWithEmailAndPasswordException) {
+          emit(
+            state.copyWith(
+              errorMessage: l.message,
+              status: FormzStatus.submissionFailure,
+            ),
+          );
+        } else {
+          emit(state.copyWith(status: FormzStatus.submissionFailure));
+        }
+      },
+      (r) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),
+    );
   }
 
   Future<void> logInWithGoogle() async {
@@ -66,17 +71,20 @@ class LoginCubit extends Cubit<LoginState> {
 
     final result = await _loginWithGoogleUseCase.execute();
 
-    result.fold((l) {
-      if (l is LogInWithGoogleException) {
-        emit(
-          state.copyWith(
-            errorMessage: l.message,
-            status: FormzStatus.submissionFailure,
-          ),
-        );
-      } else {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
-      }
-    }, (r) => emit(state.copyWith(status: FormzStatus.submissionSuccess)));
+    result.fold(
+      (l) {
+        if (l is LogInWithGoogleException) {
+          emit(
+            state.copyWith(
+              errorMessage: l.message,
+              status: FormzStatus.submissionFailure,
+            ),
+          );
+        } else {
+          emit(state.copyWith(status: FormzStatus.submissionFailure));
+        }
+      },
+      (r) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),
+    );
   }
 }

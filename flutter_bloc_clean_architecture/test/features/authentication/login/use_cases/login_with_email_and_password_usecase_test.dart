@@ -8,8 +8,12 @@ void main() {
   group('$LoginWithEmailAndPasswordUseCase', () {
     test('should return left if login with email and password fails', () async {
       final mockAuthenticationGateway = MockAuthenticationGateway();
-      when(() => mockAuthenticationGateway.logInWithEmailAndPassword(
-          email: '', password: '')).thenAnswer((_) async => throw Exception());
+      when(
+        () => mockAuthenticationGateway.logInWithEmailAndPassword(
+          email: '',
+          password: '',
+        ),
+      ).thenAnswer((_) async => throw Exception());
 
       final useCase =
           await LoginWithEmailAndPasswordUseCase(mockAuthenticationGateway)

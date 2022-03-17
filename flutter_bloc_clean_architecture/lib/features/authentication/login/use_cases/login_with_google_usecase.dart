@@ -4,12 +4,12 @@ import 'package:flutter_bloc_clean_architecture/core/common/usecase.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 
 class LoginWithGoogleUseCase implements UseCaseNoParams<void> {
-  final AuthenticationGateway _authenticationGateway;
   LoginWithGoogleUseCase(this._authenticationGateway);
+  final AuthenticationGateway _authenticationGateway;
 
   @override
   Future<Either<Exception, void>> execute() async {
-    return Task(() => _authenticationGateway.logInWithGoogle())
+    return Task(_authenticationGateway.logInWithGoogle)
         .attempt()
         .mapLeftToException()
         .run();

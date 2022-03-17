@@ -8,7 +8,7 @@ void main() {
   group('$LoginWithGoogleUseCase', () {
     test('should return left if login with google fails', () async {
       final mockAuthenticationGateway = MockAuthenticationGateway();
-      when(() => mockAuthenticationGateway.logInWithGoogle())
+      when(mockAuthenticationGateway.logInWithGoogle)
           .thenAnswer((_) async => throw Exception());
 
       final useCase =

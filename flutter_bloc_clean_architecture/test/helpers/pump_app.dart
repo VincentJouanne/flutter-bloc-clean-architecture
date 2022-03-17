@@ -10,7 +10,6 @@ extension PumpApp on WidgetTester {
   Future<void> pumpApp({String? initialLocation}) async {
     return pumpWidget(
       BlocProvider(
-        // TODO(vincent): investigate why I cannot use getIt<AppBloc>() here.
         create: (_) => AppBloc(
           getIt(),
         ),

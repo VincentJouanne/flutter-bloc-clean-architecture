@@ -65,21 +65,25 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     final result = await _signUpUseCase.execute(
-        params: SignUpUseCaseParams(
-      email: state.email.value,
-      password: state.password.value,
-    ));
+      params: SignUpUseCaseParams(
+        email: state.email.value,
+        password: state.password.value,
+      ),
+    );
 
-    result.fold((l) {
-      if (l is SignUpWithEmailAndPasswordException) {
-        emit(
-          state.copyWith(
-            errorMessage: l.message,
-            status: FormzStatus.submissionFailure,
-          ),
-        );
-      }
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }, (r) => emit(state.copyWith(status: FormzStatus.submissionSuccess)));
+    result.fold(
+      (l) {
+        if (l is SignUpWithEmailAndPasswordException) {
+          emit(
+            state.copyWith(
+              errorMessage: l.message,
+              status: FormzStatus.submissionFailure,
+            ),
+          );
+        }
+        emit(state.copyWith(status: FormzStatus.submissionFailure));
+      },
+      (r) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),
+    );
   }
 }

@@ -137,7 +137,7 @@ void main() {
         when: '''he clicks on signup button''',
         then: 'he should be redirected to the login page',
         callback: (tester) async {
-          // TODO(vincent): investigate if there is any way to have an initial location with a prefilled stack.
+          // to have an initial location with a prefilled stack.
           // GIVEN an unknown user on the signup page who has filled the form
           await tester.pumpApp(initialLocation: Routes.login);
           expect(find.byType(LoginPage), findsOneWidget);

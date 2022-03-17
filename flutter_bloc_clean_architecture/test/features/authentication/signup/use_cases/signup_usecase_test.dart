@@ -7,7 +7,7 @@ import 'package:mocktail/mocktail.dart';
 void main() {
   group('$SignUpUseCase', () {
     test(
-        'shoud be left if an exception occurs while signing up through authentication gateway',
+        '''shoud be left if an exception occurs while signing up through authentication gateway''',
         () async {
       final mockAuthenticationGateway = MockAuthenticationGateway();
       when(() => mockAuthenticationGateway.signUp(email: '', password: ''))

@@ -24,8 +24,10 @@ class InMemoryAuthenticationGateway implements AuthenticationGateway {
   }
 
   @override
-  Future<void> logInWithEmailAndPassword(
-      {required String email, required String password}) {
+  Future<void> logInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) {
     _controller.add(User.fake);
     isAuthenticated = true;
     return Future.value();

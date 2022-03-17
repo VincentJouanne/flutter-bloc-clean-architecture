@@ -29,242 +29,300 @@ void main() {
     blocTest<LoginCubit, LoginState>(
       'should prevent from login if email is badly formatted',
       build: () => LoginCubit(
-          _loginWithEmailAndPasswordUseCase, _loginWithGoogleUseCase),
+        _loginWithEmailAndPasswordUseCase,
+        _loginWithGoogleUseCase,
+      ),
       act: (cubit) {
-        cubit.emailChanged(invalidEmail);
-        cubit.logInWithCredentials();
+        cubit
+          ..emailChanged(invalidEmail)
+          ..logInWithCredentials();
       },
       expect: () => [
         const LoginState(
-            email: Email.dirty(invalidEmail),
-            password: Password.pure(),
-            status: FormzStatus.invalid)
+          email: Email.dirty(invalidEmail),
+          status: FormzStatus.invalid,
+        )
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
       'should prevent from login if password is badly formatted',
       build: () => LoginCubit(
-          _loginWithEmailAndPasswordUseCase, _loginWithGoogleUseCase),
+        _loginWithEmailAndPasswordUseCase,
+        _loginWithGoogleUseCase,
+      ),
       act: (cubit) {
-        cubit.emailChanged(validEmail);
-        cubit.passwordChanged(invalidPassword);
-        cubit.logInWithCredentials();
+        cubit
+          ..emailChanged(validEmail)
+          ..passwordChanged(invalidPassword)
+          ..logInWithCredentials();
       },
       expect: () => [
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty(validEmail),
+          status: FormzStatus.invalid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(invalidPassword),
-            status: FormzStatus.invalid)
+          email: Email.dirty(validEmail),
+          password: Password.dirty(invalidPassword),
+          status: FormzStatus.invalid,
+        )
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
-      'should expose an error message if login with email and password fails with specific exception',
-      setUp: () => when(() => _loginWithEmailAndPasswordUseCase.execute(
+      '''should expose an error message if login with email and password fails with specific exception''',
+      setUp: () => when(
+        () => _loginWithEmailAndPasswordUseCase.execute(
           params: const LoginWithEmailAndPasswordUseCaseParams(
-              email: validEmail, password: validPassword))).thenAnswer(
+            email: validEmail,
+            password: validPassword,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => left(
           LogInWithEmailAndPasswordException.fromCode('invalid-email'),
         ),
       ),
       build: () => LoginCubit(
-          _loginWithEmailAndPasswordUseCase, _loginWithGoogleUseCase),
+        _loginWithEmailAndPasswordUseCase,
+        _loginWithGoogleUseCase,
+      ),
       act: (cubit) {
-        cubit.emailChanged(validEmail);
-        cubit.passwordChanged(validPassword);
-        cubit.logInWithCredentials();
+        cubit
+          ..emailChanged(validEmail)
+          ..passwordChanged(validPassword)
+          ..logInWithCredentials();
       },
       expect: () => [
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty(validEmail),
+          status: FormzStatus.invalid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.valid),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.valid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionInProgress),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionInProgress,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionFailure)
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionFailure,
+        )
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
-      'should expose an error message if login with email and password fails with random exception',
-      setUp: () => when(() => _loginWithEmailAndPasswordUseCase.execute(
+      '''should expose an error message if login with email and password fails with random exception''',
+      setUp: () => when(
+        () => _loginWithEmailAndPasswordUseCase.execute(
           params: const LoginWithEmailAndPasswordUseCaseParams(
-              email: validEmail, password: validPassword))).thenAnswer(
+            email: validEmail,
+            password: validPassword,
+          ),
+        ),
+      ).thenAnswer(
         (_) async => left(
           Exception(),
         ),
       ),
       build: () => LoginCubit(
-          _loginWithEmailAndPasswordUseCase, _loginWithGoogleUseCase),
+        _loginWithEmailAndPasswordUseCase,
+        _loginWithGoogleUseCase,
+      ),
       act: (cubit) {
-        cubit.emailChanged(validEmail);
-        cubit.passwordChanged(validPassword);
-        cubit.logInWithCredentials();
+        cubit
+          ..emailChanged(validEmail)
+          ..passwordChanged(validPassword)
+          ..logInWithCredentials();
       },
       expect: () => [
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty(validEmail),
+          status: FormzStatus.invalid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.valid),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.valid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionInProgress),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionInProgress,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionFailure)
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionFailure,
+        )
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
-      'should expose an error message if login with google fails with specific exception',
-      setUp: () => when(() => _loginWithGoogleUseCase.execute()).thenAnswer(
+      '''should expose an error message if login with google fails with specific exception''',
+      setUp: () => when(_loginWithGoogleUseCase.execute).thenAnswer(
         (_) async => left(
           LogInWithGoogleException.fromCode(
-              'account-exists-with-different-credential'),
+            'account-exists-with-different-credential',
+          ),
         ),
       ),
       build: () => LoginCubit(
-          _loginWithEmailAndPasswordUseCase, _loginWithGoogleUseCase),
+        _loginWithEmailAndPasswordUseCase,
+        _loginWithGoogleUseCase,
+      ),
       act: (cubit) {
-        cubit.emailChanged(validEmail);
-        cubit.passwordChanged(validPassword);
-        cubit.logInWithGoogle();
+        cubit
+          ..emailChanged(validEmail)
+          ..passwordChanged(validPassword)
+          ..logInWithGoogle();
       },
       expect: () => [
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty(validEmail),
+          status: FormzStatus.invalid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.valid),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.valid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionInProgress),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionInProgress,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionFailure)
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionFailure,
+        )
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
-      'should expose an error message if login with google fails with random exception',
-      setUp: () => when(() => _loginWithGoogleUseCase.execute()).thenAnswer(
+      '''should expose an error message if login with google fails with random exception''',
+      setUp: () => when(_loginWithGoogleUseCase.execute).thenAnswer(
         (_) async => left(
           Exception(),
         ),
       ),
       build: () => LoginCubit(
-          _loginWithEmailAndPasswordUseCase, _loginWithGoogleUseCase),
+        _loginWithEmailAndPasswordUseCase,
+        _loginWithGoogleUseCase,
+      ),
       act: (cubit) {
-        cubit.emailChanged(validEmail);
-        cubit.passwordChanged(validPassword);
-        cubit.logInWithGoogle();
+        cubit
+          ..emailChanged(validEmail)
+          ..passwordChanged(validPassword)
+          ..logInWithGoogle();
       },
       expect: () => [
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty(validEmail),
+          status: FormzStatus.invalid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.valid),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.valid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionInProgress),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionInProgress,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionFailure)
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionFailure,
+        )
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
       'should succeed if login with email and password succeed',
-      setUp: () => when(() => _loginWithEmailAndPasswordUseCase.execute(
-              params: const LoginWithEmailAndPasswordUseCaseParams(
-                  email: validEmail, password: validPassword)))
-          .thenAnswer((_) async => const Right(null)),
+      setUp: () => when(
+        () => _loginWithEmailAndPasswordUseCase.execute(
+          params: const LoginWithEmailAndPasswordUseCaseParams(
+            email: validEmail,
+            password: validPassword,
+          ),
+        ),
+      ).thenAnswer((_) async => const Right(null)),
       build: () => LoginCubit(
-          _loginWithEmailAndPasswordUseCase, _loginWithGoogleUseCase),
+        _loginWithEmailAndPasswordUseCase,
+        _loginWithGoogleUseCase,
+      ),
       act: (cubit) {
-        cubit.emailChanged(validEmail);
-        cubit.passwordChanged(validPassword);
-        cubit.logInWithCredentials();
+        cubit
+          ..emailChanged(validEmail)
+          ..passwordChanged(validPassword)
+          ..logInWithCredentials();
       },
       expect: () => [
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty(validEmail),
+          status: FormzStatus.invalid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.valid),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.valid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionInProgress),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionInProgress,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionSuccess)
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionSuccess,
+        )
       ],
     );
 
     blocTest<LoginCubit, LoginState>(
       'should succeed if login with google succeed',
-      setUp: () => when(() => _loginWithGoogleUseCase.execute())
+      setUp: () => when(_loginWithGoogleUseCase.execute)
           .thenAnswer((_) async => const Right(null)),
       build: () => LoginCubit(
-          _loginWithEmailAndPasswordUseCase, _loginWithGoogleUseCase),
+        _loginWithEmailAndPasswordUseCase,
+        _loginWithGoogleUseCase,
+      ),
       act: (cubit) {
-        cubit.emailChanged(validEmail);
-        cubit.passwordChanged(validPassword);
-        cubit.logInWithGoogle();
+        cubit
+          ..emailChanged(validEmail)
+          ..passwordChanged(validPassword)
+          ..logInWithGoogle();
       },
       expect: () => [
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.pure(),
-            status: FormzStatus.invalid),
+          email: Email.dirty(validEmail),
+          status: FormzStatus.invalid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.valid),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.valid,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionInProgress),
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionInProgress,
+        ),
         const LoginState(
-            email: Email.dirty(validEmail),
-            password: Password.dirty(validPassword),
-            status: FormzStatus.submissionSuccess)
+          email: Email.dirty(validEmail),
+          password: Password.dirty(validPassword),
+          status: FormzStatus.submissionSuccess,
+        )
       ],
     );
   });

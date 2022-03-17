@@ -5,26 +5,29 @@ import 'package:flutter_bloc_clean_architecture/core/common/usecase.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 
 class SignUpUseCaseParams extends Equatable {
+  const SignUpUseCaseParams({this.email = '', this.password = ''});
+
   final String email;
   final String password;
-
-  const SignUpUseCaseParams({this.email = '', this.password = ''});
 
   @override
   List<Object?> get props => [email, password];
 }
 
 class SignUpUseCase implements UseCase<void, SignUpUseCaseParams> {
-  final AuthenticationGateway _authenticationGateway;
-
   SignUpUseCase(this._authenticationGateway);
 
+  final AuthenticationGateway _authenticationGateway;
+
   @override
-  Future<Either<Exception, void>> execute(
-      {required SignUpUseCaseParams params}) async {
-    return Task(() => _authenticationGateway.signUp(
-          email: params.email,
-          password: params.password,
-        )).attempt().mapLeftToException().run();
+  Future<Either<Exception, void>> execute({
+    required SignUpUseCaseParams params,
+  }) async {
+    return Task(
+      () => _authenticationGateway.signUp(
+        email: params.email,
+        password: params.password,
+      ),
+    ).attempt().mapLeftToException().run();
   }
 }

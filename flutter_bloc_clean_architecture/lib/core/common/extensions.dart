@@ -7,6 +7,7 @@ extension TaskX<T extends Either<Object, U>, U> on Task<T> {
         try {
           return obj as Exception;
         } catch (e) {
+          // ignore: only_throw_errors
           throw obj;
         }
       }),
