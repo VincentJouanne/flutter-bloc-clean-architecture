@@ -30,6 +30,12 @@ class User extends Equatable {
   /// Empty user which represents an unauthenticated user.
   static const empty = User(id: '');
 
+  static const fake = User(
+    id: 'id1',
+    name: 'Flutter',
+    photo: 'https://flutter.svg',
+  );
+
   /// Convenience getter to determine whether the current user is empty.
   bool get isEmpty => this == User.empty;
 

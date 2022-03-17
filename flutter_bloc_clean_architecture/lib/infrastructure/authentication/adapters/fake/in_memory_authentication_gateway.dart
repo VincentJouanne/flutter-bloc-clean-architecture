@@ -12,26 +12,28 @@ class InMemoryAuthenticationGateway implements AuthenticationGateway {
   final _controller = StreamController<User>.broadcast();
 
   @override
-  User get currentUser => isAuthenticated ? const User(id: 'id1') : User.empty;
+  User get currentUser => isAuthenticated ? User.fake : User.empty;
 
   @override
   Stream<User> get user {
-    return _controller.stream.asBroadcastStream(onListen: (_) {
-      _controller.add(isAuthenticated ? const User(id: 'id1') : User.empty);
-    });
+    return _controller.stream.asBroadcastStream(
+      onListen: (_) {
+        _controller.add(isAuthenticated ? User.fake : User.empty);
+      },
+    );
   }
 
   @override
   Future<void> logInWithEmailAndPassword(
       {required String email, required String password}) {
-    _controller.add(const User(id: 'id1'));
+    _controller.add(User.fake);
     isAuthenticated = true;
     return Future.value();
   }
 
   @override
   Future<void> logInWithGoogle() {
-    _controller.add(const User(id: 'id1'));
+    _controller.add(User.fake);
     isAuthenticated = true;
     return Future.value();
   }
