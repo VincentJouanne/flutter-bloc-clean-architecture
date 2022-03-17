@@ -13,10 +13,8 @@ import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/ad
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 import 'package:get_it/get_it.dart';
 
-/// The service locator used accross the whole code base.
 final getIt = GetIt.instance;
 
-/// Resolve the dependencies between all layers of the app.
 Future<void> resolveDependencies({
   MockAuthenticationGateway? mockAuthenticationGateway,
   bool? isAuthenticated,
@@ -53,13 +51,13 @@ Future<void> resolveDependencies({
     ..registerFactory<LoginCubit>(() => LoginCubit(getIt(), getIt()));
 }
 
-T _resolveDependencie<T>(bool isTesting, T? mock, T? fake, T? real) {
+T _resolveDependencie<T>(bool isTesting, T? mock, T? inMemory, T? real) {
   if (isTesting && mock != null) {
     return mock;
   }
 
-  if (isTesting && fake != null) {
-    return fake;
+  if (isTesting && inMemory != null) {
+    return inMemory;
   }
 
   // ignore: null_check_on_nullable_type_parameter
