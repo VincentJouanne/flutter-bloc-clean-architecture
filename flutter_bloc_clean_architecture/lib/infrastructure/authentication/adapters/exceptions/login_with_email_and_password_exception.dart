@@ -1,16 +1,9 @@
 // coverage:ignore-file
-/// {@template log_in_with_email_and_password_failure}
-/// Thrown during the login process if a failure occurs.
-/// https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/signInWithEmailAndPassword.html
-/// {@endtemplate}
 class LogInWithEmailAndPasswordException implements Exception {
-  /// {@macro log_in_with_email_and_password_failure}
   const LogInWithEmailAndPasswordException([
     this.message = 'An unknown exception occurred.',
   ]);
 
-  /// Create an authentication message
-  /// from a firebase authentication exception code.
   factory LogInWithEmailAndPasswordException.fromCode(String code) {
     switch (code) {
       case 'invalid-email':
@@ -34,6 +27,5 @@ class LogInWithEmailAndPasswordException implements Exception {
     }
   }
 
-  /// The associated error message.
   final String message;
 }

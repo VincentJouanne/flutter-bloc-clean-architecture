@@ -14,11 +14,7 @@ import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/po
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 
-/// {@template authentication_repository}
-/// Repository which manages user authentication.
-/// {@endtemplate}
 class FirebaseAuthenticationGateway implements AuthenticationGateway {
-  /// {@macro authentication_repository}
   FirebaseAuthenticationGateway({
     CacheClient? cache,
     firebase_auth.FirebaseAuth? firebaseAuth,
@@ -31,21 +27,12 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  /// Whether or not the current environment is web
-  /// Should only be overriden for testing purposes. Otherwise,
-  /// defaults to [kIsWeb]
   @visibleForTesting
   bool isWeb = kIsWeb;
 
-  /// User cache key.
-  /// Should only be used for testing purposes.
   @visibleForTesting
   static const userCacheKey = '__user_cache_key__';
 
-  /// Stream of [User] which will emit the current user when
-  /// the authentication state changes.
-  ///
-  /// Emits [User.empty] if the user is not authenticated.
   @override
   Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
@@ -55,16 +42,11 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
     });
   }
 
-  /// Returns the current cached user.
-  /// Defaults to [User.empty] if there is no cached user.
   @override
   User get currentUser {
     return _cache.read<User>(key: userCacheKey) ?? User.empty;
   }
 
-  /// Creates a new user with the provided [email] and [password].
-  ///
-  /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
   @override
   Future<void> signUp({required String email, required String password}) async {
     try {
@@ -79,9 +61,6 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
     }
   }
 
-  /// Starts the Sign In with Google Flow.
-  ///
-  /// Throws a [LogInWithGoogleFailure] if an exception occurs.
   @override
   Future<void> logInWithGoogle() async {
     try {
@@ -109,9 +88,6 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
     }
   }
 
-  /// Signs in with the provided [email] and [password].
-  ///
-  /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
   @override
   Future<void> logInWithEmailAndPassword({
     required String email,
@@ -129,10 +105,6 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
     }
   }
 
-  /// Signs out the current user which will emit
-  /// [User.empty] from the [user] Stream.
-  ///
-  /// Throws a [LogOutFailure] if an exception occurs.
   @override
   Future<void> logOut() async {
     try {
