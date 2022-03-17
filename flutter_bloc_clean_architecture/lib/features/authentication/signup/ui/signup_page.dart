@@ -7,10 +7,6 @@ import 'package:flutter_bloc_clean_architecture/features/authentication/signup/u
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const SignUpPage());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
