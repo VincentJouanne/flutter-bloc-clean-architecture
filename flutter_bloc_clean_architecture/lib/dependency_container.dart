@@ -13,35 +13,44 @@ import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/ad
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 import 'package:get_it/get_it.dart';
 
+/// The service locator used accross the whole code base.
 final getIt = GetIt.instance;
 
-resolveDependencies(
-    {MockAuthenticationGateway? mockAuthenticationGateway,
-    bool? isAuthenticated}) async {
+/// Resolve the dependencies between all layers of the app.
+Future<void> resolveDependencies({
+  MockAuthenticationGateway? mockAuthenticationGateway,
+  bool? isAuthenticated,
+}) async {
   final isTesting = Platform.environment.containsKey('FLUTTER_TEST');
 
   // Infrastructure
   final authenticationGateway = _resolveDependencie<AuthenticationGateway>(
-      isTesting,
-      mockAuthenticationGateway,
-      InMemoryAuthenticationGateway(isAuthenticated: isAuthenticated ?? false),
-      isTesting ? null : FirebaseAuthenticationGateway());
+    isTesting,
+    mockAuthenticationGateway,
+    InMemoryAuthenticationGateway(isAuthenticated: isAuthenticated ?? false),
+    isTesting ? null : FirebaseAuthenticationGateway(),
+  );
 
   await authenticationGateway.user.first;
-  getIt.registerLazySingleton<AuthenticationGateway>(
-      () => authenticationGateway);
 
-  // Use-cases
-  getIt.registerSingleton<SignUpUseCase>(SignUpUseCase(getIt()));
-  getIt.registerSingleton<LoginWithEmailAndPasswordUseCase>(
-      LoginWithEmailAndPasswordUseCase(getIt()));
-  getIt.registerSingleton<LoginWithGoogleUseCase>(
-      LoginWithGoogleUseCase(getIt()));
+  getIt
+    ..registerLazySingleton<AuthenticationGateway>(
+      () => authenticationGateway,
+    )
 
-  // Blocs
-  getIt.registerSingleton<AppBloc>(AppBloc(getIt()));
-  getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
-  getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt(), getIt()));
+    // Use-cases
+    ..registerSingleton<SignUpUseCase>(SignUpUseCase(getIt()))
+    ..registerSingleton<LoginWithEmailAndPasswordUseCase>(
+      LoginWithEmailAndPasswordUseCase(getIt()),
+    )
+    ..registerSingleton<LoginWithGoogleUseCase>(
+      LoginWithGoogleUseCase(getIt()),
+    )
+
+    // Blocs
+    ..registerSingleton<AppBloc>(AppBloc(getIt()))
+    ..registerFactory<SignUpCubit>(() => SignUpCubit(getIt()))
+    ..registerFactory<LoginCubit>(() => LoginCubit(getIt(), getIt()));
 }
 
 T _resolveDependencie<T>(bool isTesting, T? mock, T? fake, T? real) {

@@ -1,3 +1,4 @@
+// coverage:ignore-file
 part of 'app_bloc.dart';
 
 abstract class AppEvent extends Equatable {

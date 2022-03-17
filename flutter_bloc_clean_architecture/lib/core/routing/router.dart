@@ -8,44 +8,48 @@ import 'package:flutter_bloc_clean_architecture/features/home/ui/home_page.dart'
 import 'package:go_router/go_router.dart';
 
 GoRouter router(BuildContext context, String? initialLocation) => GoRouter(
-    initialLocation: initialLocation ?? Routes.login,
-    debugLogDiagnostics: true,
-    refreshListenable: GoRouterRefreshStream(context.read<AppBloc>().stream),
-    routes: [
-      GoRoute(
-        path: Routes.signup,
-        builder: (context, state) {
-          return const SignUpPage();
-        },
-      ),
-      GoRoute(
-        path: Routes.login,
-        builder: (context, state) {
-          return const LoginPage();
-        },
-      ),
-      GoRoute(
-        path: Routes.home,
-        builder: (context, state) {
-          return const HomePage();
-        },
-      ),
-    ],
-    redirect: (state) {
-      final loggedIn = context.read<AppBloc>().state.isAuthenticated;
-      final loggingIn = state.subloc == '/login';
-      final signingUp = state.subloc == '/signup';
+      initialLocation: initialLocation ?? Routes.login,
+      debugLogDiagnostics: true,
+      refreshListenable: GoRouterRefreshStream(context.read<AppBloc>().stream),
+      routes: [
+        GoRoute(
+          path: Routes.signup,
+          builder: (context, state) {
+            return const SignUpPage();
+          },
+        ),
+        GoRoute(
+          path: Routes.login,
+          builder: (context, state) {
+            return const LoginPage();
+          },
+        ),
+        GoRoute(
+          path: Routes.home,
+          builder: (context, state) {
+            return const HomePage();
+          },
+        ),
+      ],
+      redirect: (state) {
+        final loggedIn = context.read<AppBloc>().state.isAuthenticated;
+        final loggingIn = state.subloc == Routes.login;
+        final signingUp = state.subloc == Routes.signup;
 
-      if (signingUp) {
-        return '/signup';
-      } else if (!loggedIn) {
-        return loggingIn ? null : '/login';
-      } else if (loggingIn) {
-        return '/home';
-      } else {
+        if (signingUp) {
+          return null;
+        }
+
+        if (!loggedIn) {
+          return loggingIn ? null : Routes.login;
+        }
+        if (loggingIn) {
+          return Routes.home;
+        }
+
         return null;
-      }
-    });
+      },
+    );
 
 class Routes extends Equatable {
   static const signup = '/signup';
