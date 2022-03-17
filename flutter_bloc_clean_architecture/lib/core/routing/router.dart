@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/core/app/application/app_bloc.dart';
@@ -51,11 +50,8 @@ GoRouter router(BuildContext context, String? initialLocation) => GoRouter(
       },
     );
 
-class Routes extends Equatable {
+class Routes {
   static const signup = '/signup';
   static const login = '/login';
   static const home = '/home';
-
-  @override
-  List<Object?> get props => [signup, login, home];
 }
