@@ -15,13 +15,13 @@ extension PumpApp on WidgetTester {
           getIt(),
         ),
         child: Builder(
-          builder: ((context) {
+          builder: (context) {
             final _appRouter = router(context, initialLocation);
             return MaterialApp.router(
               routerDelegate: _appRouter.routerDelegate,
               routeInformationParser: _appRouter.routeInformationParser,
             );
-          }),
+          },
         ),
       ),
     );
@@ -29,11 +29,14 @@ extension PumpApp on WidgetTester {
 }
 
 @isTest
-void testUI(
-    {String given = '',
-    String when = '',
-    String then = '',
-    required WidgetTesterCallback callback}) {
+Future<void> testUI({
+  String given = '',
+  String when = '',
+  String then = '',
+  required WidgetTesterCallback callback,
+}) async {
   return testWidgets(
-      '\nGIVEN: $given \n WHEN: $when \n THEN: $then \n', callback);
+    '\nGIVEN 👉: $given \n WHEN ⚡️: $when \n THEN 🙌: $then \n',
+    callback,
+  );
 }

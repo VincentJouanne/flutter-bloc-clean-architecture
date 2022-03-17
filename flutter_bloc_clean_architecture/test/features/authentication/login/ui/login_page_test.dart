@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_clean_architecture/core/routing/router.dart';
 import 'package:flutter_bloc_clean_architecture/dependency_container.dart';
@@ -17,6 +19,7 @@ void main() {
       setUp(() {
         getIt.pushNewScope();
         resolveDependencies();
+        HttpOverrides.global = null;
       });
       tearDown(getIt.popScope);
 
@@ -115,8 +118,9 @@ void main() {
           expect(find.byType(LoginPage), findsOneWidget);
 
           // WHEN he clicks on login with google
-          await tester
-              .tap(find.byKey(const Key('loginForm_googleLogin_raisedButton')));
+          await tester.tap(
+            find.byKey(const Key('loginForm_googleLogin_raisedButton')),
+          );
 
           await tester.pumpAndSettle();
 
