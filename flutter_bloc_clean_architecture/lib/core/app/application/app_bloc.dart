@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/models/user.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/common/domain/entities/user.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 
 part 'app_event.dart';

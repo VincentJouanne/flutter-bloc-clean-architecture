@@ -1,7 +1,7 @@
 // coverage:ignore-file
 import 'dart:async';
 
-import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/models/user.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/common/domain/entities/user.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
