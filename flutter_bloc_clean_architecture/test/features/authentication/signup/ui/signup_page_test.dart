@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_clean_architecture/core/routing/router.dart';
 import 'package:flutter_bloc_clean_architecture/dependency_container.dart';
-import 'package:flutter_bloc_clean_architecture/features/authentication/common/domain/entities/user.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/domain/entities/user.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/ui/login_page.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/signup/ui/signup_page.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/mock_authentication_gateway.dart';

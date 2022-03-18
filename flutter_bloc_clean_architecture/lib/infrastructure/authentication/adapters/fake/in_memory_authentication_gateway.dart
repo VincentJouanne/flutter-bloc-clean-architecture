@@ -1,7 +1,7 @@
 // coverage:ignore-file
 import 'dart:async';
 
-import 'package:flutter_bloc_clean_architecture/features/authentication/common/domain/entities/user.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/domain/entities/user.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 
 class InMemoryAuthenticationGateway implements AuthenticationGateway {

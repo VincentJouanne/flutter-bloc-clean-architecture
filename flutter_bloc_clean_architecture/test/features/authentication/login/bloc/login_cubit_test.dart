@@ -1,11 +1,9 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_bloc_clean_architecture/features/authentication/common/domain/domain.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/domain/domain.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_email_and_password_usecase.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_google_usecase.dart';
-import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/exceptions/login_with_email_and_password_exception.dart';
-import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/exceptions/login_with_google_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 import 'package:mocktail/mocktail.dart';
