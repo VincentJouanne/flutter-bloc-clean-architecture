@@ -23,10 +23,12 @@ Future<void> resolveDependencies({
 
   // Infrastructure
   final authenticationGateway = _resolveDependencie<AuthenticationGateway>(
-    isTesting,
-    mockAuthenticationGateway,
-    InMemoryAuthenticationGateway(isAuthenticated: isAuthenticated ?? false),
-    isTesting ? null : FirebaseAuthenticationGateway(),
+    isTesting: isTesting,
+    mock: mockAuthenticationGateway,
+    inMemory: InMemoryAuthenticationGateway(
+      isAuthenticated: isAuthenticated ?? false,
+    ),
+    real: isTesting ? null : FirebaseAuthenticationGateway(),
   );
 
   await authenticationGateway.user.first;
@@ -51,7 +53,12 @@ Future<void> resolveDependencies({
     ..registerFactory<LoginCubit>(() => LoginCubit(getIt(), getIt()));
 }
 
-T _resolveDependencie<T>(bool isTesting, T? mock, T? inMemory, T? real) {
+T _resolveDependencie<T>({
+  bool isTesting = false,
+  T? mock,
+  T? inMemory,
+  T? real,
+}) {
   if (isTesting && mock != null) {
     return mock;
   }

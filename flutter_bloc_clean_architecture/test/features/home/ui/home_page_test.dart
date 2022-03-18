@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_clean_architecture/core/routing/router.dart';
 import 'package:flutter_bloc_clean_architecture/dependency_container.dart';
@@ -7,6 +5,7 @@ import 'package:flutter_bloc_clean_architecture/features/authentication/login/ui
 import 'package:flutter_bloc_clean_architecture/features/home/ui/home_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/ignore_network_calls.dart';
 import '../../../helpers/pump_app.dart';
 
 void main() {
@@ -14,7 +13,7 @@ void main() {
     setUpAll(() {
       getIt.pushNewScope();
       resolveDependencies(isAuthenticated: true);
-      HttpOverrides.global = null;
+      ignoreNetworkCalls();
     });
     tearDownAll(getIt.popScope);
 
