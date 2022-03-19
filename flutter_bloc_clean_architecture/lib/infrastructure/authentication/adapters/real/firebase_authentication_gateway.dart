@@ -45,7 +45,7 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
   }
 
   @override
-  Future<Either<SignUpWithEmailAndPasswordException, void>> signUp({
+  Future<Either<SignUpWithEmailAndPasswordException, Unit>> signUp({
     required String email,
     required String password,
   }) async {
@@ -59,11 +59,11 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
     } catch (_) {
       return const Left(SignUpWithEmailAndPasswordException());
     }
-    return const Right(null);
+    return const Right(unit);
   }
 
   @override
-  Future<Either<LogInWithGoogleException, void>> logInWithGoogle() async {
+  Future<Either<LogInWithGoogleException, Unit>> logInWithGoogle() async {
     try {
       late final firebase_auth.AuthCredential credential;
       if (isWeb) {
@@ -87,11 +87,11 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
     } catch (_) {
       return const Left(LogInWithGoogleException());
     }
-    return const Right(null);
+    return const Right(unit);
   }
 
   @override
-  Future<Either<LogInWithEmailAndPasswordException, void>>
+  Future<Either<LogInWithEmailAndPasswordException, Unit>>
       logInWithEmailAndPassword({
     required String email,
     required String password,
@@ -106,11 +106,11 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
     } catch (_) {
       return const Left(LogInWithEmailAndPasswordException());
     }
-    return const Right(null);
+    return const Right(unit);
   }
 
   @override
-  Future<Either<LogOutException, void>> logOut() async {
+  Future<Either<LogOutException, Unit>> logOut() async {
     try {
       await Future.wait([
         _firebaseAuth.signOut(),
@@ -119,7 +119,7 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
     } catch (_) {
       return Left(LogOutException());
     }
-    return const Right(null);
+    return const Right(unit);
   }
 }
 

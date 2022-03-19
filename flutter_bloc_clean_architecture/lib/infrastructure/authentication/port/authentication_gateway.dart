@@ -9,18 +9,18 @@ enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 abstract class AuthenticationGateway {
   Stream<User> get user;
   User get currentUser;
-  Future<Either<SignUpWithEmailAndPasswordException, void>> signUp({
+  Future<Either<SignUpWithEmailAndPasswordException, Unit>> signUp({
     required String email,
     required String password,
   }) async {
     throw UnimplementedError();
   }
 
-  Future<Either<LogInWithGoogleException, void>> logInWithGoogle() async {
+  Future<Either<LogInWithGoogleException, Unit>> logInWithGoogle() async {
     throw UnimplementedError();
   }
 
-  Future<Either<LogInWithEmailAndPasswordException, void>>
+  Future<Either<LogInWithEmailAndPasswordException, Unit>>
       logInWithEmailAndPassword({
     required String email,
     required String password,
@@ -28,7 +28,7 @@ abstract class AuthenticationGateway {
     throw UnimplementedError();
   }
 
-  Future<Either<LogOutException, void>> logOut() async {
+  Future<Either<LogOutException, Unit>> logOut() async {
     throw UnimplementedError();
   }
 }

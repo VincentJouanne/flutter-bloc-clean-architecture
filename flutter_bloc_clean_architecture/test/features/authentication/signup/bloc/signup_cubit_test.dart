@@ -159,7 +159,7 @@ void main() {
               password: 'Password123',
             ),
           ),
-        ).thenAnswer((_) async => const Right(null));
+        ).thenAnswer((_) async => const Right(unit));
       },
       build: () => SignUpCubit(signUpUseCase),
       act: (cubit) {

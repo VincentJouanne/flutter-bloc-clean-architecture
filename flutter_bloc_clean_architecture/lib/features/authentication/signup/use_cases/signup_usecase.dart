@@ -14,13 +14,13 @@ class SignUpUseCaseParams extends Equatable {
   List<Object?> get props => [email, password];
 }
 
-class SignUpUseCase implements UseCase<void, SignUpUseCaseParams> {
+class SignUpUseCase implements UseCase<Unit, SignUpUseCaseParams> {
   SignUpUseCase(this._authenticationGateway);
 
   final AuthenticationGateway _authenticationGateway;
 
   @override
-  Future<Either<SignUpWithEmailAndPasswordException, void>> execute({
+  Future<Either<SignUpWithEmailAndPasswordException, Unit>> execute({
     required SignUpUseCaseParams params,
   }) async {
     return _authenticationGateway.signUp(

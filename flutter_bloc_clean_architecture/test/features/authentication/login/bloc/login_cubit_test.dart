@@ -253,7 +253,7 @@ void main() {
             password: validPassword,
           ),
         ),
-      ).thenAnswer((_) async => const Right(null)),
+      ).thenAnswer((_) async => const Right(unit)),
       build: () => LoginCubit(
         _loginWithEmailAndPasswordUseCase,
         _loginWithGoogleUseCase,
@@ -290,7 +290,7 @@ void main() {
     blocTest<LoginCubit, LoginState>(
       'should succeed if login with google succeed',
       setUp: () => when(_loginWithGoogleUseCase.execute)
-          .thenAnswer((_) async => const Right(null)),
+          .thenAnswer((_) async => const Right(unit)),
       build: () => LoginCubit(
         _loginWithEmailAndPasswordUseCase,
         _loginWithGoogleUseCase,

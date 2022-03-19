@@ -25,35 +25,35 @@ class InMemoryAuthenticationGateway implements AuthenticationGateway {
   }
 
   @override
-  Future<Either<LogInWithEmailAndPasswordException, void>>
+  Future<Either<LogInWithEmailAndPasswordException, Unit>>
       logInWithEmailAndPassword({
     required String email,
     required String password,
   }) {
     _controller.add(User.fake);
     isAuthenticated = true;
-    return Future.value(const Right(null));
+    return Future.value(const Right(unit));
   }
 
   @override
-  Future<Either<LogInWithGoogleException, void>> logInWithGoogle() {
+  Future<Either<LogInWithGoogleException, Unit>> logInWithGoogle() {
     _controller.add(User.fake);
     isAuthenticated = true;
-    return Future.value(const Right(null));
+    return Future.value(const Right(unit));
   }
 
   @override
-  Future<Either<LogOutException, void>> logOut() {
+  Future<Either<LogOutException, Unit>> logOut() {
     _controller.add(User.empty);
     isAuthenticated = false;
-    return Future.value(const Right(null));
+    return Future.value(const Right(unit));
   }
 
   @override
-  Future<Either<SignUpWithEmailAndPasswordException, void>> signUp({
+  Future<Either<SignUpWithEmailAndPasswordException, Unit>> signUp({
     required String email,
     required String password,
   }) {
-    return Future.value(const Right(null));
+    return Future.value(const Right(unit));
   }
 }

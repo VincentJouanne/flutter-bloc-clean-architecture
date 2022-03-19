@@ -18,12 +18,12 @@ class LoginWithEmailAndPasswordUseCaseParams extends Equatable {
 }
 
 class LoginWithEmailAndPasswordUseCase
-    implements UseCase<void, LoginWithEmailAndPasswordUseCaseParams> {
+    implements UseCase<Unit, LoginWithEmailAndPasswordUseCaseParams> {
   LoginWithEmailAndPasswordUseCase(this._authenticationGateway);
   final AuthenticationGateway _authenticationGateway;
 
   @override
-  Future<Either<LogInWithEmailAndPasswordException, void>> execute({
+  Future<Either<LogInWithEmailAndPasswordException, Unit>> execute({
     required LoginWithEmailAndPasswordUseCaseParams params,
   }) async {
     return _authenticationGateway.logInWithEmailAndPassword(
