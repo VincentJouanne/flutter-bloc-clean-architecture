@@ -1,6 +1,7 @@
 // coverage:ignore-file
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -44,21 +45,25 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
   }
 
   @override
-  Future<void> signUp({required String email, required String password}) async {
+  Future<Either<SignUpWithEmailAndPasswordException, void>> signUp({
+    required String email,
+    required String password,
+  }) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      throw SignUpWithEmailAndPasswordException.fromCode(e.code);
+      return Left(SignUpWithEmailAndPasswordException.fromCode(e.code));
     } catch (_) {
-      throw const SignUpWithEmailAndPasswordException();
+      return const Left(SignUpWithEmailAndPasswordException());
     }
+    return const Right(null);
   }
 
   @override
-  Future<void> logInWithGoogle() async {
+  Future<Either<LogInWithGoogleException, void>> logInWithGoogle() async {
     try {
       late final firebase_auth.AuthCredential credential;
       if (isWeb) {
@@ -78,14 +83,16 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
 
       await _firebaseAuth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
-      throw LogInWithGoogleException.fromCode(e.code);
+      return Left(LogInWithGoogleException.fromCode(e.code));
     } catch (_) {
-      throw const LogInWithGoogleException();
+      return const Left(LogInWithGoogleException());
     }
+    return const Right(null);
   }
 
   @override
-  Future<void> logInWithEmailAndPassword({
+  Future<Either<LogInWithEmailAndPasswordException, void>>
+      logInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -95,22 +102,24 @@ class FirebaseAuthenticationGateway implements AuthenticationGateway {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      throw LogInWithEmailAndPasswordException.fromCode(e.code);
+      return Left(LogInWithEmailAndPasswordException.fromCode(e.code));
     } catch (_) {
-      throw const LogInWithEmailAndPasswordException();
+      return const Left(LogInWithEmailAndPasswordException());
     }
+    return const Right(null);
   }
 
   @override
-  Future<void> logOut() async {
+  Future<Either<LogOutException, void>> logOut() async {
     try {
       await Future.wait([
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),
       ]);
     } catch (_) {
-      throw LogOutException();
+      return Left(LogOutException());
     }
+    return const Right(null);
   }
 }
 

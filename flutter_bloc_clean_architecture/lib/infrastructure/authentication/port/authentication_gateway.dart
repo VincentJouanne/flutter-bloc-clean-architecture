@@ -1,21 +1,34 @@
 // coverage:ignore-file
 import 'dart:async';
 
-import 'package:flutter_bloc_clean_architecture/features/authentication/domain/entities/user.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/domain/domain.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
 abstract class AuthenticationGateway {
   Stream<User> get user;
   User get currentUser;
-  Future<void> signUp({
+  Future<Either<SignUpWithEmailAndPasswordException, void>> signUp({
     required String email,
     required String password,
-  }) async {}
-  Future<void> logInWithGoogle() async {}
-  Future<void> logInWithEmailAndPassword({
+  }) async {
+    throw UnimplementedError();
+  }
+
+  Future<Either<LogInWithGoogleException, void>> logInWithGoogle() async {
+    throw UnimplementedError();
+  }
+
+  Future<Either<LogInWithEmailAndPasswordException, void>>
+      logInWithEmailAndPassword({
     required String email,
     required String password,
-  }) async {}
-  Future<void> logOut() async {}
+  }) async {
+    throw UnimplementedError();
+  }
+
+  Future<Either<LogOutException, void>> logOut() async {
+    throw UnimplementedError();
+  }
 }

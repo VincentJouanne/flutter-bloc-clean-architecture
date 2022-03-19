@@ -43,7 +43,7 @@ class DefaultFirebaseOptions {
     projectId: 'flutter-clean-architectu-fdaec',
     storageBucket: 'flutter-clean-architectu-fdaec.appspot.com',
     iosClientId:
-        '535118340305-hh9rrssgmvvohbj2mt79th9br3goprtc.apps.googleusercontent.com',
+        '''535118340305-hh9rrssgmvvohbj2mt79th9br3goprtc.apps.googleusercontent.com''',
     iosBundleId: 'com.vincentj.fluttercleanarchitecture',
   );
 }

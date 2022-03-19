@@ -1,7 +1,8 @@
 // coverage:ignore-file
 import 'dart:async';
 
-import 'package:flutter_bloc_clean_architecture/features/authentication/domain/entities/user.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/domain/domain.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 
 class InMemoryAuthenticationGateway implements AuthenticationGateway {
@@ -24,31 +25,35 @@ class InMemoryAuthenticationGateway implements AuthenticationGateway {
   }
 
   @override
-  Future<void> logInWithEmailAndPassword({
+  Future<Either<LogInWithEmailAndPasswordException, void>>
+      logInWithEmailAndPassword({
     required String email,
     required String password,
   }) {
     _controller.add(User.fake);
     isAuthenticated = true;
-    return Future.value();
+    return Future.value(const Right(null));
   }
 
   @override
-  Future<void> logInWithGoogle() {
+  Future<Either<LogInWithGoogleException, void>> logInWithGoogle() {
     _controller.add(User.fake);
     isAuthenticated = true;
-    return Future.value();
+    return Future.value(const Right(null));
   }
 
   @override
-  Future<void> logOut() {
+  Future<Either<LogOutException, void>> logOut() {
     _controller.add(User.empty);
     isAuthenticated = false;
-    return Future.value();
+    return Future.value(const Right(null));
   }
 
   @override
-  Future<void> signUp({required String email, required String password}) {
-    return Future.value();
+  Future<Either<SignUpWithEmailAndPasswordException, void>> signUp({
+    required String email,
+    required String password,
+  }) {
+    return Future.value(const Right(null));
   }
 }

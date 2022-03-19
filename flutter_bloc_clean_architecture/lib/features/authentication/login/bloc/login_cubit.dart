@@ -49,16 +49,12 @@ class LoginCubit extends Cubit<LoginState> {
 
     result.fold(
       (l) {
-        if (l is LogInWithEmailAndPasswordException) {
-          emit(
-            state.copyWith(
-              errorMessage: l.message,
-              status: FormzStatus.submissionFailure,
-            ),
-          );
-        } else {
-          emit(state.copyWith(status: FormzStatus.submissionFailure));
-        }
+        emit(
+          state.copyWith(
+            errorMessage: l.message,
+            status: FormzStatus.submissionFailure,
+          ),
+        );
       },
       (r) => emit(state.copyWith(status: FormzStatus.submissionSuccess)),
     );
