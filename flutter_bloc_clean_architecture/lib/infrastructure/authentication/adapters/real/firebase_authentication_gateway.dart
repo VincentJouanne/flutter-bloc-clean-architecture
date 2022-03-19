@@ -4,9 +4,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter_bloc_clean_architecture/core/cache/cache.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/domain/domain.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/cache/cache.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 

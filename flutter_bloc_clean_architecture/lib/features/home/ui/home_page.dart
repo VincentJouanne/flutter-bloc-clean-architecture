@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_clean_architecture/core/app/application/app_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/features/app/bloc/app_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/features/home/ui/widgets/avatar.dart';
 
 class HomePage extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_clean_architecture/core/routing/router.dart';
 import 'package:flutter_bloc_clean_architecture/dependency_container.dart';
+import 'package:flutter_bloc_clean_architecture/features/app/ui/routing/router.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/ui/login_page.dart';
 import 'package:flutter_bloc_clean_architecture/features/home/ui/home_page.dart';
 import 'package:flutter_test/flutter_test.dart';

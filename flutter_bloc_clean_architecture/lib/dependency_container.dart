@@ -1,7 +1,7 @@
 // coverage:ignore-file
 import 'dart:io';
 
-import 'package:flutter_bloc_clean_architecture/core/app/application/app_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/features/app/bloc/app_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_email_and_password_usecase.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_google_usecase.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter_bloc_clean_architecture/core/cache/cache.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/cache/cache.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
