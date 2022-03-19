@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/domain/domain.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_google_usecase.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/in_memory_authentication_gateway.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/mock_authentication_gateway.dart';
@@ -8,8 +10,11 @@ void main() {
   group('$LoginWithGoogleUseCase', () {
     test('should return left if login with google fails', () async {
       final mockAuthenticationGateway = MockAuthenticationGateway();
-      when(mockAuthenticationGateway.logInWithGoogle)
-          .thenAnswer((_) async => throw Exception());
+      when(mockAuthenticationGateway.logInWithGoogle).thenAnswer(
+        (_) async => const Left(
+          LogInWithGoogleException(),
+        ),
+      );
 
       final useCase =
           await LoginWithGoogleUseCase(mockAuthenticationGateway).execute();

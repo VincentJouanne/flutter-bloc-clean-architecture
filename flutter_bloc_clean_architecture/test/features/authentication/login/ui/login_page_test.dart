@@ -1,7 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_clean_architecture/dependency_container.dart';
 import 'package:flutter_bloc_clean_architecture/features/app/ui/routing/router.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/domain/entities/user.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/domain/exceptions/login_with_email_and_password_exception.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/ui/login_page.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/signup/ui/signup_page.dart';
 import 'package:flutter_bloc_clean_architecture/features/home/ui/home_page.dart';
@@ -160,7 +162,11 @@ void main() {
             email: 'valid@gmail.com',
             password: 'Password123',
           ),
-        ).thenAnswer((_) async => throw Exception());
+        ).thenAnswer(
+          (_) async => Left(
+            LogInWithEmailAndPasswordException.fromCode('user-disabled'),
+          ),
+        );
 
         when(() => _mockAuthenticationGateway.user)
             .thenAnswer((_) => Stream.value(User.empty));
@@ -206,7 +212,12 @@ void main() {
           // THEN he should not be redirected
           // to the home page and see an error message
           expect(find.byType(HomePage), findsNothing);
-          expect(find.text('Authentication Failure'), findsOneWidget);
+          expect(
+            find.text(
+              'This user has been disabled. Please contact support for help.',
+            ),
+            findsOneWidget,
+          );
         },
       );
     });

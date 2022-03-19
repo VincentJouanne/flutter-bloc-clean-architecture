@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_bloc_clean_architecture/features/authentication/domain/exceptions/login_with_email_and_password_exception.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_email_and_password_usecase.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/in_memory_authentication_gateway.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/mock_authentication_gateway.dart';
@@ -13,7 +15,9 @@ void main() {
           email: '',
           password: '',
         ),
-      ).thenAnswer((_) async => throw Exception());
+      ).thenAnswer(
+        (_) async => const Left(LogInWithEmailAndPasswordException()),
+      );
 
       final useCase =
           await LoginWithEmailAndPasswordUseCase(mockAuthenticationGateway)

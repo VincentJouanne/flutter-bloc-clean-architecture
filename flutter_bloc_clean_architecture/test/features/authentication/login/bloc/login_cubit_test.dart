@@ -126,7 +126,7 @@ void main() {
         ),
       ).thenAnswer(
         (_) async => left(
-          Exception(),
+          const LogInWithEmailAndPasswordException(),
         ),
       ),
       build: () => LoginCubit(
