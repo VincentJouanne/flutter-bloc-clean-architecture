@@ -7,3 +7,6 @@ test:
 # Open coverage
 open_coverage:
 	open flutter_bloc_clean_architecture/coverage/index.html
+
+watch_features_changes:
+	(cd flutter_bloc_clean_architecture && flutter packages pub run build_runner watch --delete-conflicting-outputs)
