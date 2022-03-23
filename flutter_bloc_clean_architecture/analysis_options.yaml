@@ -5,3 +5,4 @@ linter:
     public_member_api_docs: false
     comment_references: false
     sort_pub_dependencies: false
+    lines_longer_than_80_chars: false
