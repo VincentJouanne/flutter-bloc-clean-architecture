@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc_clean_architecture/core/usecase.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/domain/exceptions/sign_up_with_email_and_password_exception.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
+import 'package:flutter_bloc_clean_architecture/shared/usecase.dart';
 
 class SignUpUseCaseParams extends Equatable {
   const SignUpUseCaseParams({this.email = '', this.password = ''});
