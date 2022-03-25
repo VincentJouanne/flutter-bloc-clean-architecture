@@ -4,7 +4,7 @@ import 'package:flutter_bloc_clean_architecture/features/authentication/login/ui
 import 'package:flutter_bloc_clean_architecture/features/authentication/signup/ui/signup_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../../../helpers/pump_app.dart';
+import '../helpers/pump_app.dart';
 
 Future<void> anUnknownUserOnTheSignupPage(WidgetTester tester) async {
   await tester.pumpApp(initialLocation: Routes.login);
