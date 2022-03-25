@@ -1,0 +1,9 @@
+targets:
+  $default:
+    sources:
+      - test/**
+    builders:
+      bdd_widget_test|featureBuilder:
+        options:
+          stepFolderName: ../../cucumber_steps # this trick is required to share steps between widget and integration tests
+          # testMethodName: customTestMethodName

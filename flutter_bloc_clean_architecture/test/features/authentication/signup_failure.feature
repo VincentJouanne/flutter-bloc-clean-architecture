@@ -7,3 +7,4 @@ Background:
         And the user enters valid credentials
         When the user taps on the create account button
         Then he should see an error message {'This user has been disabled. Please contact support for help.'}
+        
