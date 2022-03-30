@@ -13,7 +13,7 @@ Future<void> theDependenciesAreResolvedWithAnErrorWhenSigningUp(
   final _mockAuthenticationGateway = MockAuthenticationGateway();
   when(
     () => _mockAuthenticationGateway.signUp(
-      email: 'valid@gmail.com',
+      email: 'vincent@gmail.com',
       password: 'Password123',
     ),
   ).thenAnswer(

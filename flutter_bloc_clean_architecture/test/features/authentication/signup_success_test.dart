@@ -7,16 +7,13 @@ import 'package:flutter_test/flutter_test.dart';
 
 import './../../cucumber_steps/the_dependencies_are_resolved.dart';
 import './../../cucumber_steps/the_dependencies_are_popped.dart';
-import './../../cucumber_steps/an_unknown_user_on_the_signup_page.dart';
-import './../../cucumber_steps/he_enters_a_badly_formatted_email.dart';
-import './../../cucumber_steps/he_should_see_an_error_message.dart';
-import './../../cucumber_steps/he_enters_a_well_formatted_email.dart';
-import './../../cucumber_steps/he_enters_a_badly_formatted_password.dart';
-import './../../cucumber_steps/he_should_see_two_error_messages.dart';
-import './../../cucumber_steps/he_enters_a_well_formatted_password.dart';
-import './../../cucumber_steps/the_user_enters_valid_credentials.dart';
-import './../../cucumber_steps/the_user_taps_on_the_create_account_button.dart';
-import './../../cucumber_steps/the_user_see_the_login_page.dart';
+import './../../cucumber_steps/i_am_on_the_signup_page.dart';
+import './../../cucumber_steps/i_type_in_the_email_text_field_of_the_signup_page.dart';
+import './../../cucumber_steps/i_should_see_a_text.dart';
+import './../../cucumber_steps/i_type_in_the_password_text_field_of_the_signup_page.dart';
+import './../../cucumber_steps/i_type_in_the_confirmed_password_text_field_of_the_signup_page.dart';
+import './../../cucumber_steps/i_tap_on_the_signup_button.dart';
+import './../../cucumber_steps/i_should_be_redirected_to_the_login_page.dart';
 
 void main() {
   Future<void> bddSetUp(WidgetTester tester) async {
@@ -28,33 +25,36 @@ void main() {
   group('''Sign up form checks and success''', () {
     testWidgets('''email badly formatted''', (tester) async {
       await bddSetUp(tester);
-      await anUnknownUserOnTheSignupPage(tester);
-      await heEntersABadlyFormattedEmail(tester);
-      await heShouldSeeAnErrorMessage(tester, 'invalid email');
+      await iAmOnTheSignupPage(tester);
+      await iTypeInTheEmailTextFieldOfTheSignupPage(tester, 'invalid-email');
+      await iShouldSeeAText(tester, 'invalid email');
       await bddTearDown(tester);
     });
     testWidgets('''email well formatted but password badly formatted''', (tester) async {
       await bddSetUp(tester);
-      await anUnknownUserOnTheSignupPage(tester);
-      await heEntersAWellFormattedEmail(tester);
-      await heEntersABadlyFormattedPassword(tester);
-      await heShouldSeeTwoErrorMessages(tester, 'invalid password', 'passwords do not match');
+      await iAmOnTheSignupPage(tester);
+      await iTypeInTheEmailTextFieldOfTheSignupPage(tester, 'vincent@gmail.com');
+      await iTypeInThePasswordTextFieldOfTheSignupPage(tester, 'pass');
+      await iShouldSeeAText(tester, 'invalid password');
+      await iShouldSeeAText(tester, 'passwords do not match');
       await bddTearDown(tester);
     });
     testWidgets('''confirmed password missing''', (tester) async {
       await bddSetUp(tester);
-      await anUnknownUserOnTheSignupPage(tester);
-      await heEntersAWellFormattedEmail(tester);
-      await heEntersAWellFormattedPassword(tester);
-      await heShouldSeeAnErrorMessage(tester, 'passwords do not match');
+      await iAmOnTheSignupPage(tester);
+      await iTypeInTheEmailTextFieldOfTheSignupPage(tester, 'vincent@gmail.com');
+      await iTypeInThePasswordTextFieldOfTheSignupPage(tester, 'Password123');
+      await iShouldSeeAText(tester, 'passwords do not match');
       await bddTearDown(tester);
     });
     testWidgets('''An unknown user is able to sign up with valid credentials''', (tester) async {
       await bddSetUp(tester);
-      await anUnknownUserOnTheSignupPage(tester);
-      await theUserEntersValidCredentials(tester);
-      await theUserTapsOnTheCreateAccountButton(tester);
-      await theUserSeeTheLoginPage(tester);
+      await iAmOnTheSignupPage(tester);
+      await iTypeInTheEmailTextFieldOfTheSignupPage(tester, 'vincent@gmail.com');
+      await iTypeInThePasswordTextFieldOfTheSignupPage(tester, 'Password123');
+      await iTypeInTheConfirmedPasswordTextFieldOfTheSignupPage(tester, 'Password123');
+      await iTapOnTheSignupButton(tester);
+      await iShouldBeRedirectedToTheLoginPage(tester);
       await bddTearDown(tester);
     });
   });

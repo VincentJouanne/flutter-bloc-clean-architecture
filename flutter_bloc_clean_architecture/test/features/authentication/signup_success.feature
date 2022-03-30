@@ -6,25 +6,28 @@ After:
     Then the dependencies are popped
 
     Scenario: email badly formatted
-        Given An unknown user on the signup page
-        When he enters a badly formatted email
-        Then he should see an error message {'invalid email'}
+        Given I am on the signup page
+        When I type {'invalid-email'} in the email text field of the signup page
+        Then I should see a text {'invalid email'}
 
     Scenario: email well formatted but password badly formatted
-        Given An unknown user on the signup page
-        When he enters a well formatted email
-        But he enters a badly formatted password
-        Then he should see two error messages {'invalid password'} {'passwords do not match'} 
-    
+        Given I am on the signup page
+        When I type {'vincent@gmail.com'} in the email text field of the signup page
+        And I type {'pass'} in the password text field of the signup page
+        Then I should see a text {'invalid password'} 
+        Then I should see a text {'passwords do not match'} 
+
     Scenario: confirmed password missing
-        Given An unknown user on the signup page
-        When he enters a well formatted email
-        And he enters a well formatted password
-       Then he should see an error message {'passwords do not match'} 
+        Given I am on the signup page
+        When I type {'vincent@gmail.com'} in the email text field of the signup page
+        And I type {'Password123'} in the password text field of the signup page
+        Then I should see a text {'passwords do not match'}
 
     Scenario: An unknown user is able to sign up with valid credentials
-        Given An unknown user on the signup page
-        And the user enters valid credentials
-        When the user taps on the create account button
-        Then the user see the login page
+         Given I am on the signup page
+        When I type {'vincent@gmail.com'} in the email text field of the signup page
+        And I type {'Password123'} in the password text field of the signup page
+        And I type {'Password123'} in the confirmed password text field of the signup page
+        And I tap on the signup button
+        Then I should be redirected to the login page
 
