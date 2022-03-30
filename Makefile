@@ -1,7 +1,7 @@
 # Run tests and generate coverage
 test:
-	(cd flutter_bloc_clean_architecture && very_good test --coverage --test-randomize-ordering-seed random && \
-	remove_from_coverage -f coverage/lcov.info -r '\.g\.dart' && \
+	(cd flutter_bloc_clean_architecture && very_good test --coverage --test-randomize-ordering-seed random \
+	--exclude-coverage '\.g\.dart' --min-coverage 100 && \
 	genhtml coverage/lcov.info -o coverage)
 
 # Open coverage
