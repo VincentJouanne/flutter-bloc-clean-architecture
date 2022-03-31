@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/domain/domain.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/signup/bloc/signup_state.dart';
-import 'package:flutter_bloc_clean_architecture/features/authentication/signup/use_cases/signup_usecase.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/port/authentication_gateway.dart';
 import 'package:formz/formz.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  SignUpCubit(this._signUpUseCase) : super(const SignUpState());
+  SignUpCubit(this._authenticationGateway) : super(const SignUpState());
 
-  final SignUpUseCase _signUpUseCase;
+  final AuthenticationGateway _authenticationGateway;
 
   void emailChanged(String value) {
     final email = Email.dirty(value);
@@ -63,11 +63,9 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
-    final result = await _signUpUseCase.execute(
-      params: SignUpUseCaseParams(
-        email: state.email.value,
-        password: state.password.value,
-      ),
+    final result = await _authenticationGateway.signUp(
+      email: state.email.value,
+      password: state.password.value,
     );
 
     result.fold(

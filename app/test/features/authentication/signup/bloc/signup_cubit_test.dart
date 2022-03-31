@@ -3,19 +3,17 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/domain/domain.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/signup/bloc/signup_cubit.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/signup/bloc/signup_state.dart';
-import 'package:flutter_bloc_clean_architecture/features/authentication/signup/use_cases/signup_usecase.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/mock_authentication_gateway.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockSignUpUseCase extends Mock implements SignUpUseCase {}
-
 void main() {
-  late final signUpUseCase = MockSignUpUseCase();
+  late final _authenticationGateway = MockAuthenticationGateway();
   group('$SignUpCubit', () {
     blocTest<SignUpCubit, SignUpState>(
       '''should be in invalid status and prevent from sending form if email is badly formatted''',
-      build: () => SignUpCubit(signUpUseCase),
+      build: () => SignUpCubit(_authenticationGateway),
       act: (cubit) {
         cubit
           ..emailChanged('foo')
@@ -30,7 +28,7 @@ void main() {
     );
     blocTest<SignUpCubit, SignUpState>(
       '''should be in invalid status and prevent from sending form if password is too simple''',
-      build: () => SignUpCubit(signUpUseCase),
+      build: () => SignUpCubit(_authenticationGateway),
       act: (cubit) {
         cubit
           ..emailChanged('me@gmail.com')
@@ -53,7 +51,7 @@ void main() {
 
     blocTest<SignUpCubit, SignUpState>(
       '''should be in invalid status and prevent from sending form if password and confirmed password do not match''',
-      build: () => SignUpCubit(signUpUseCase),
+      build: () => SignUpCubit(_authenticationGateway),
       act: (cubit) {
         cubit
           ..emailChanged('me@gmail.com')
@@ -88,11 +86,9 @@ void main() {
       'should be in error status with a custom error message if signup failed',
       setUp: () {
         when(
-          () => signUpUseCase.execute(
-            params: const SignUpUseCaseParams(
-              email: 'me@gmail.com',
-              password: 'Password123',
-            ),
+          () => _authenticationGateway.signUp(
+            email: 'me@gmail.com',
+            password: 'Password123',
           ),
         ).thenAnswer(
           (_) async => left(
@@ -100,7 +96,7 @@ void main() {
           ),
         );
       },
-      build: () => SignUpCubit(signUpUseCase),
+      build: () => SignUpCubit(_authenticationGateway),
       act: (cubit) {
         cubit
           ..emailChanged('me@gmail.com')
@@ -153,15 +149,13 @@ void main() {
       'should be in success status if signup succeed',
       setUp: () {
         when(
-          () => signUpUseCase.execute(
-            params: const SignUpUseCaseParams(
-              email: 'me@gmail.com',
-              password: 'Password123',
-            ),
+          () => _authenticationGateway.signUp(
+            email: 'me@gmail.com',
+            password: 'Password123',
           ),
         ).thenAnswer((_) async => const Right(unit));
       },
-      build: () => SignUpCubit(signUpUseCase),
+      build: () => SignUpCubit(_authenticationGateway),
       act: (cubit) {
         cubit
           ..emailChanged('me@gmail.com')
