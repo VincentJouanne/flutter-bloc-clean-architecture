@@ -9,6 +9,12 @@ import './../../cucumber_steps/the_dependencies_are_popped.dart';
 import './../../cucumber_steps/i_am_on_the_login_page.dart';
 import './../../cucumber_steps/i_type_in_the_email_text_field_of_the_login_page.dart';
 import './../../cucumber_steps/i_should_see_a_text.dart';
+import './../../cucumber_steps/i_type_in_the_password_text_field_of_the_login_page.dart';
+import './../../cucumber_steps/i_tap_on_the_login_button.dart';
+import './../../cucumber_steps/i_should_be_redirected_to_the_home_page.dart';
+import './../../cucumber_steps/i_tap_on_the_login_with_google_button.dart';
+import './../../cucumber_steps/i_tap_on_the_create_account_button.dart';
+import './../../cucumber_steps/i_should_be_redirected_to_the_signup_page.dart';
 
 void main() {
   Future<void> bddSetUp(WidgetTester tester) async {
@@ -23,6 +29,37 @@ void main() {
       await iAmOnTheLoginPage(tester);
       await iTypeInTheEmailTextFieldOfTheLoginPage(tester, 'some-invalid-email');
       await iShouldSeeAText(tester, 'invalid email');
+      await bddTearDown(tester);
+    });
+    testWidgets('''password badly formatted''', (tester) async {
+      await bddSetUp(tester);
+      await iAmOnTheLoginPage(tester);
+      await iTypeInTheEmailTextFieldOfTheLoginPage(tester, 'vincent@gmail.com');
+      await iTypeInThePasswordTextFieldOfTheLoginPage(tester, 'pass');
+      await iShouldSeeAText(tester, 'invalid password');
+      await bddTearDown(tester);
+    });
+    testWidgets('''login with credentials successfull''', (tester) async {
+      await bddSetUp(tester);
+      await iAmOnTheLoginPage(tester);
+      await iTypeInTheEmailTextFieldOfTheLoginPage(tester, 'vincent@gmail.com');
+      await iTypeInThePasswordTextFieldOfTheLoginPage(tester, 'Password123');
+      await iTapOnTheLoginButton(tester);
+      await iShouldBeRedirectedToTheHomePage(tester);
+      await bddTearDown(tester);
+    });
+    testWidgets('''login with google successfull''', (tester) async {
+      await bddSetUp(tester);
+      await iAmOnTheLoginPage(tester);
+      await iTapOnTheLoginWithGoogleButton(tester);
+      await iShouldBeRedirectedToTheHomePage(tester);
+      await bddTearDown(tester);
+    });
+    testWidgets('''going to signup page from login''', (tester) async {
+      await bddSetUp(tester);
+      await iAmOnTheLoginPage(tester);
+      await iTapOnTheCreateAccountButton(tester);
+      await iShouldBeRedirectedToTheSignupPage(tester);
       await bddTearDown(tester);
     });
   });
