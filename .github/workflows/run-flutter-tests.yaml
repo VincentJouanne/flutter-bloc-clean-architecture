@@ -18,21 +18,21 @@ jobs:
           channel: "stable"
 
       - name: Restore packages
-        working-directory: ./flutter_bloc_clean_architecture
+        working-directory: ./app
         run: flutter pub get
 
       - name: Analyze
-        working-directory: ./flutter_bloc_clean_architecture
+        working-directory: ./app
         run: flutter analyze
 
       - name: Run tests
-        working-directory: ./flutter_bloc_clean_architecture
+        working-directory: ./app
         run: flutter test --no-pub --coverage --test-randomize-ordering-seed random
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v2
         with:
-          directory: ./flutter_bloc_clean_architecture/coverage/
+          directory: ./app/coverage/
           files: lcov.info
           fail_ci_if_error: true
           verbose: true
