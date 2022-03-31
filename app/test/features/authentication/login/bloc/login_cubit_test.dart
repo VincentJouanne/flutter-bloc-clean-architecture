@@ -2,17 +2,11 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/domain/domain.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
-import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_email_and_password_usecase.dart';
-import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_google_usecase.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/in_memory_authentication_gateway.dart';
+import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/mock_authentication_gateway.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 import 'package:mocktail/mocktail.dart';
-
-class MockLoginWithEmailAndPassword extends Mock
-    implements LoginWithEmailAndPasswordUseCase {}
-
-class MockLoginWithGoogleUseCase extends Mock
-    implements LoginWithGoogleUseCase {}
 
 const validEmail = 'me@gmail.coom';
 const invalidEmail = 'abc';
@@ -20,15 +14,14 @@ const validPassword = 'Password123';
 const invalidPassword = '123';
 
 void main() {
-  final _loginWithEmailAndPasswordUseCase = MockLoginWithEmailAndPassword();
-  final _loginWithGoogleUseCase = MockLoginWithGoogleUseCase();
+  final _mockAuthenticationGateway = MockAuthenticationGateway();
+  final _inMemoryAuthenticationGateway = InMemoryAuthenticationGateway();
 
   group('$LoginCubit', () {
     blocTest<LoginCubit, LoginState>(
       'should prevent from login if email is badly formatted',
       build: () => LoginCubit(
-        _loginWithEmailAndPasswordUseCase,
-        _loginWithGoogleUseCase,
+        _mockAuthenticationGateway,
       ),
       act: (cubit) {
         cubit
@@ -46,8 +39,7 @@ void main() {
     blocTest<LoginCubit, LoginState>(
       'should prevent from login if password is badly formatted',
       build: () => LoginCubit(
-        _loginWithEmailAndPasswordUseCase,
-        _loginWithGoogleUseCase,
+        _mockAuthenticationGateway,
       ),
       act: (cubit) {
         cubit
@@ -71,11 +63,9 @@ void main() {
     blocTest<LoginCubit, LoginState>(
       '''should expose an error message if login with email and password fails with specific exception''',
       setUp: () => when(
-        () => _loginWithEmailAndPasswordUseCase.execute(
-          params: const LoginWithEmailAndPasswordUseCaseParams(
-            email: validEmail,
-            password: validPassword,
-          ),
+        () => _mockAuthenticationGateway.logInWithEmailAndPassword(
+          email: validEmail,
+          password: validPassword,
         ),
       ).thenAnswer(
         (_) async => left(
@@ -83,8 +73,7 @@ void main() {
         ),
       ),
       build: () => LoginCubit(
-        _loginWithEmailAndPasswordUseCase,
-        _loginWithGoogleUseCase,
+        _mockAuthenticationGateway,
       ),
       act: (cubit) {
         cubit
@@ -118,11 +107,9 @@ void main() {
     blocTest<LoginCubit, LoginState>(
       '''should expose an error message if login with email and password fails with random exception''',
       setUp: () => when(
-        () => _loginWithEmailAndPasswordUseCase.execute(
-          params: const LoginWithEmailAndPasswordUseCaseParams(
-            email: validEmail,
-            password: validPassword,
-          ),
+        () => _mockAuthenticationGateway.logInWithEmailAndPassword(
+          email: validEmail,
+          password: validPassword,
         ),
       ).thenAnswer(
         (_) async => left(
@@ -130,8 +117,7 @@ void main() {
         ),
       ),
       build: () => LoginCubit(
-        _loginWithEmailAndPasswordUseCase,
-        _loginWithGoogleUseCase,
+        _mockAuthenticationGateway,
       ),
       act: (cubit) {
         cubit
@@ -164,7 +150,7 @@ void main() {
 
     blocTest<LoginCubit, LoginState>(
       '''should expose an error message if login with google fails with specific exception''',
-      setUp: () => when(_loginWithGoogleUseCase.execute).thenAnswer(
+      setUp: () => when(_mockAuthenticationGateway.logInWithGoogle).thenAnswer(
         (_) async => left(
           LogInWithGoogleException.fromCode(
             'account-exists-with-different-credential',
@@ -172,8 +158,7 @@ void main() {
         ),
       ),
       build: () => LoginCubit(
-        _loginWithEmailAndPasswordUseCase,
-        _loginWithGoogleUseCase,
+        _mockAuthenticationGateway,
       ),
       act: (cubit) {
         cubit
@@ -206,14 +191,13 @@ void main() {
 
     blocTest<LoginCubit, LoginState>(
       '''should expose an error message if login with google fails with random exception''',
-      setUp: () => when(_loginWithGoogleUseCase.execute).thenAnswer(
+      setUp: () => when(_mockAuthenticationGateway.logInWithGoogle).thenAnswer(
         (_) async => left(
-          Exception(),
+          const LogInWithGoogleException(),
         ),
       ),
       build: () => LoginCubit(
-        _loginWithEmailAndPasswordUseCase,
-        _loginWithGoogleUseCase,
+        _mockAuthenticationGateway,
       ),
       act: (cubit) {
         cubit
@@ -246,17 +230,8 @@ void main() {
 
     blocTest<LoginCubit, LoginState>(
       'should succeed if login with email and password succeed',
-      setUp: () => when(
-        () => _loginWithEmailAndPasswordUseCase.execute(
-          params: const LoginWithEmailAndPasswordUseCaseParams(
-            email: validEmail,
-            password: validPassword,
-          ),
-        ),
-      ).thenAnswer((_) async => const Right(unit)),
       build: () => LoginCubit(
-        _loginWithEmailAndPasswordUseCase,
-        _loginWithGoogleUseCase,
+        _inMemoryAuthenticationGateway,
       ),
       act: (cubit) {
         cubit
@@ -289,11 +264,8 @@ void main() {
 
     blocTest<LoginCubit, LoginState>(
       'should succeed if login with google succeed',
-      setUp: () => when(_loginWithGoogleUseCase.execute)
-          .thenAnswer((_) async => const Right(unit)),
       build: () => LoginCubit(
-        _loginWithEmailAndPasswordUseCase,
-        _loginWithGoogleUseCase,
+        _inMemoryAuthenticationGateway,
       ),
       act: (cubit) {
         cubit
