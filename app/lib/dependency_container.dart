@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:flutter_bloc_clean_architecture/features/app/bloc/app_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
-import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_email_and_password_usecase.dart';
-import 'package:flutter_bloc_clean_architecture/features/authentication/login/use_cases/login_with_google_usecase.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/signup/bloc/signup_cubit.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/signup/use_cases/signup_usecase.dart';
 import 'package:flutter_bloc_clean_architecture/infrastructure/authentication/adapters/fake/in_memory_authentication_gateway.dart';
@@ -40,17 +38,11 @@ Future<void> resolveDependencies({
 
     // Use-cases
     ..registerSingleton<SignUpUseCase>(SignUpUseCase(getIt()))
-    ..registerSingleton<LoginWithEmailAndPasswordUseCase>(
-      LoginWithEmailAndPasswordUseCase(getIt()),
-    )
-    ..registerSingleton<LoginWithGoogleUseCase>(
-      LoginWithGoogleUseCase(getIt()),
-    )
 
     // Blocs
     ..registerSingleton<AppBloc>(AppBloc(getIt()))
     ..registerFactory<SignUpCubit>(() => SignUpCubit(getIt()))
-    ..registerFactory<LoginCubit>(() => LoginCubit(getIt(), getIt()));
+    ..registerFactory<LoginCubit>(() => LoginCubit(getIt()));
 }
 
 T _resolveDependencie<T>({
