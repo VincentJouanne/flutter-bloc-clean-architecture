@@ -4,17 +4,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import './../../cucumber_steps/the_dependencies_are_resolved.dart';
-import './../../cucumber_steps/the_dependencies_are_popped.dart';
-import './../../cucumber_steps/i_am_on_the_login_page.dart';
-import './../../cucumber_steps/i_type_in_the_email_text_field_of_the_login_page.dart';
-import './../../cucumber_steps/i_should_see_a_text.dart';
-import './../../cucumber_steps/i_type_in_the_password_text_field_of_the_login_page.dart';
-import './../../cucumber_steps/i_tap_on_the_login_button.dart';
-import './../../cucumber_steps/i_should_be_redirected_to_the_home_page.dart';
-import './../../cucumber_steps/i_tap_on_the_login_with_google_button.dart';
-import './../../cucumber_steps/i_tap_on_the_create_account_button.dart';
-import './../../cucumber_steps/i_should_be_redirected_to_the_signup_page.dart';
+import './../test/cucumber_steps/the_dependencies_are_resolved.dart';
+import './../test/cucumber_steps/the_dependencies_are_popped.dart';
+import './../test/cucumber_steps/i_am_on_the_login_page.dart';
+import './../test/cucumber_steps/i_type_in_the_email_text_field_of_the_login_page.dart';
+import './../test/cucumber_steps/i_should_see_a_text.dart';
+import './../test/cucumber_steps/i_type_in_the_password_text_field_of_the_login_page.dart';
+import './../test/cucumber_steps/i_tap_on_the_login_button.dart';
+import './../test/cucumber_steps/i_should_be_redirected_to_the_home_page.dart';
+import './../test/cucumber_steps/i_tap_on_the_login_with_google_button.dart';
+import './../test/cucumber_steps/i_tap_on_the_create_account_button.dart';
+import './../test/cucumber_steps/i_should_be_redirected_to_the_signup_page.dart';
 
 void main() {
   Future<void> bddSetUp(WidgetTester tester) async {
