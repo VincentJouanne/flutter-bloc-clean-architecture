@@ -2,4 +2,6 @@
 
 # 🏛 Flutter Bloc Clean Architecture
 
-![FLutter Bloc Clean Architecture](./docs/flutter_bloc_clean_architecture.png)
+# Motivation
+
+This repository aims to be a template or an inspiration source for your next Flutter project by providing you high quality standards.
