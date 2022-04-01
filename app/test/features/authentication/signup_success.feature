@@ -29,5 +29,5 @@ After:
         And I type {'Password123'} in the password text field of the signup page
         And I type {'Password123'} in the confirmed password text field of the signup page
         And I tap on the signup button
-        Then I should be redirected to the login page
+        Then I should be redirected to the home page
 

@@ -54,6 +54,8 @@ class InMemoryAuthenticationGateway implements AuthenticationGateway {
     required String email,
     required String password,
   }) {
+    _controller.add(User.fake);
+    isAuthenticated = true;
     return Future.value(const Right(unit));
   }
 }
