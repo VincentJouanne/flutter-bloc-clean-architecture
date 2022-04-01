@@ -5,21 +5,21 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "flutter_bloc_clean_architecture",
-      "cwd": "flutter_bloc_clean_architecture",
+      "name": "app",
+      "cwd": "app",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "flutter_bloc_clean_architecture (profile mode)",
-      "cwd": "flutter_bloc_clean_architecture",
+      "name": "app (profile mode)",
+      "cwd": "app",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "flutter_bloc_clean_architecture (release mode)",
-      "cwd": "flutter_bloc_clean_architecture",
+      "name": "app (release mode)",
+      "cwd": "app",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
