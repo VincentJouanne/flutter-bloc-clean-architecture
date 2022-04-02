@@ -1,10 +1,10 @@
 targets:
   $default:
     sources:
-      - integration_test/**
+      - e2e/**
       - test/**
     builders:
       bdd_widget_test|featureBuilder:
         options:
-          stepFolderName: ../test/cucumber_steps # this trick is required to share steps between widget and integration tests
+          stepFolderName: ../../../../test/cucumber_steps # this trick is required to share steps between widget and integration tests
           # testMethodName: customTestMethodName
