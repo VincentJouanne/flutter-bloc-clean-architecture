@@ -12,6 +12,11 @@ import './../../../../test/cucumber_steps/i_type_in_the_password_text_field_of_t
 import './../../../../test/cucumber_steps/i_type_in_the_confirmed_password_text_field_of_the_signup_page.dart';
 import './../../../../test/cucumber_steps/i_tap_on_the_signup_button.dart';
 import './../../../../test/cucumber_steps/i_should_be_redirected_to_the_home_page.dart';
+import './../../../../test/cucumber_steps/i_tap_on_disconnect_button.dart';
+import './../../../../test/cucumber_steps/i_should_be_redirected_to_the_login_page.dart';
+import './../../../../test/cucumber_steps/i_type_in_the_email_text_field_of_the_login_page.dart';
+import './../../../../test/cucumber_steps/i_type_in_the_password_text_field_of_the_login_page.dart';
+import './../../../../test/cucumber_steps/i_tap_on_the_login_button.dart';
 
 void main() {
   Future<void> bddSetUp(WidgetTester tester) async {
@@ -28,6 +33,12 @@ void main() {
       await iTypeInThePasswordTextFieldOfTheSignupPage(tester, 'Password123');
       await iTypeInTheConfirmedPasswordTextFieldOfTheSignupPage(tester, 'Password123');
       await iTapOnTheSignupButton(tester);
+      await iShouldBeRedirectedToTheHomePage(tester);
+      await iTapOnDisconnectButton(tester);
+      await iShouldBeRedirectedToTheLoginPage(tester);
+      await iTypeInTheEmailTextFieldOfTheLoginPage(tester, 'vincent@gmail.com');
+      await iTypeInThePasswordTextFieldOfTheLoginPage(tester, 'Password123');
+      await iTapOnTheLoginButton(tester);
       await iShouldBeRedirectedToTheHomePage(tester);
       await bddTearDown(tester);
     });
