@@ -1,7 +1,7 @@
 targets:
   $default:
     sources:
-      - e2e/**
+      - integration_test/**
       - test/**
     builders:
       bdd_widget_test|featureBuilder:

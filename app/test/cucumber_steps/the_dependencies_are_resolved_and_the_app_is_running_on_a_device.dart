@@ -12,8 +12,8 @@ Future<void> theDependenciesAreResolvedAndTheAppIsRunningOnADevice(
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   getIt.pushNewScope();
   ignoreNetworkCalls();
   await resolveDependencies();
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 }
