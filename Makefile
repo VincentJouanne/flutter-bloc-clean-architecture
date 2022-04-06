@@ -5,7 +5,7 @@ test:
 	genhtml coverage/lcov.info -o coverage)
 
 test_e2e:
-	(cd app && flutter test e2e)
+	(cd app && flutter test integration_test)
 
 # Open coverage
 open_coverage:
