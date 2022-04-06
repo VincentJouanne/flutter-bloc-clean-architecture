@@ -8,3 +8,4 @@ After:
     Given I am on the home page
     When I tap on disconnect button
     Then I should be redirected to the login page
+    

@@ -2,11 +2,9 @@
 
 # The application example
 
-![stuff](./docs/monumental_habits_banner.png)
+![app_banner](./docs/monumental_habits_banner.png)
 
-A Productivity App that is uniquely designed to help users build habits that lasts.
-
-[UI Kit available here !](https://www.pixeltrue.com/free-ui-kits/habit-builder-ui-kit)
+A [free UI Kit](https://www.pixeltrue.com/free-ui-kits/habit-builder-ui-kit) made by [Pixel True](https://www.pixeltrue.com/), which will be used as a demo application for this repository.
 
 # Motivation
 
