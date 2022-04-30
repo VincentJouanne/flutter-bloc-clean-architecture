@@ -15,13 +15,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.0"
-  app_theme:
-    dependency: "direct main"
-    description:
-      path: "../theme"
-      relative: true
-    source: path
-    version: "0.0.1"
   archive:
     dependency: transitive
     description:
@@ -708,6 +701,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+  theme:
+    dependency: "direct main"
+    description:
+      path: "../theme"
+      relative: true
+    source: path
+    version: "0.0.1"
   timing:
     dependency: transitive
     description:

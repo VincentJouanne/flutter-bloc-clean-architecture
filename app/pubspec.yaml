@@ -9,7 +9,7 @@ environment:
   sdk: ">=2.16.1 <3.0.0"
 
 dependencies:
-  app_theme:
+  theme:
     path: ../theme
   flutter:
     sdk: flutter
