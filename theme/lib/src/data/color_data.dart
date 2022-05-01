@@ -8,6 +8,7 @@ class ColorData {
     required this.morning,
     required this.fog,
     required this.skin,
+    required this.lightSkin,
     required this.eclipse,
   });
 
@@ -17,6 +18,7 @@ class ColorData {
   final Color morning;
   final Color fog;
   final Color skin;
+  final Color lightSkin;
   final Color eclipse;
 
   factory ColorData.main() {
@@ -27,6 +29,7 @@ class ColorData {
       morning: const Color(0xFFFFBA7C),
       fog: const Color(0xFFFFDEEF),
       skin: const Color(0xFFFFF3E9),
+      lightSkin: const Color(0xFFFFF6ED),
       eclipse: const Color(0xFF573353),
     );
   }

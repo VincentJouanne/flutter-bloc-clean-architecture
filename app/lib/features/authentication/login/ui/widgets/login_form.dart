@@ -70,8 +70,13 @@ class _CredentialsLoginFormGroup extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _EmailInput(),
-                _PasswordInput(),
+                SizedBox(height: theme.sizes.m),
+                const AppInput.primary(
+                  icon: Icons.email_outlined,
+                  hintText: 'Email',
+                ),
+                SizedBox(height: theme.sizes.s),
+                const _PasswordInput(),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: theme.sizes.l),
                   child: AppButton.primary(
@@ -87,6 +92,35 @@ class _CredentialsLoginFormGroup extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class _PasswordInput extends StatefulWidget {
+  const _PasswordInput({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_PasswordInput> createState() => _PasswordInputState();
+}
+
+class _PasswordInputState extends State<_PasswordInput> {
+  bool _obscureText = true;
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AppInput.primary(
+      icon: Icons.lock_outline,
+      hintText: 'Password',
+      obscureText: _obscureText,
+      showHiddenInput: _toggle,
     );
   }
 }
@@ -146,27 +180,27 @@ class _EmailInput extends StatelessWidget {
   }
 }
 
-class _PasswordInput extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      buildWhen: (previous, current) => previous.password != current.password,
-      builder: (context, state) {
-        return TextField(
-          key: const Key('loginForm_passwordInput_textField'),
-          onChanged: (password) =>
-              context.read<LoginCubit>().passwordChanged(password),
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'password',
-            helperText: '',
-            errorText: state.password.invalid ? 'invalid password' : null,
-          ),
-        );
-      },
-    );
-  }
-}
+// class _PasswordInput extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<LoginCubit, LoginState>(
+//       buildWhen: (previous, current) => previous.password != current.password,
+//       builder: (context, state) {
+//         return TextField(
+//           key: const Key('loginForm_passwordInput_textField'),
+//           onChanged: (password) =>
+//               context.read<LoginCubit>().passwordChanged(password),
+//           obscureText: true,
+//           decoration: InputDecoration(
+//             labelText: 'password',
+//             helperText: '',
+//             errorText: state.password.invalid ? 'invalid password' : null,
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
 
 class _LoginButton extends StatelessWidget {
   @override
