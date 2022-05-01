@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/features/authentication/login/bloc/login_cubit.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
+import 'package:theme/theme.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -22,29 +24,97 @@ class LoginForm extends StatelessWidget {
             );
         }
       },
-      child: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                'assets/bloc_logo_small.png',
-                height: 120,
-              ),
-              const SizedBox(height: 16),
-              _EmailInput(),
-              const SizedBox(height: 8),
-              _PasswordInput(),
-              const SizedBox(height: 8),
-              _LoginButton(),
-              const SizedBox(height: 8),
-              _GoogleLoginButton(),
-              const SizedBox(height: 4),
-              _SignUpButton(),
-            ],
-          ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Spacer(),
+          _SocialLoginButtonGroup(),
+          SizedBox(height: 25),
+          _CredentialsLoginFormGroup(),
+          SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
+
+class _CredentialsLoginFormGroup extends StatelessWidget {
+  const _CredentialsLoginFormGroup({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ThemeResolver.of(context);
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: AppText.p3('Login with email'),
+          ),
+          Container(
+            width: double.infinity,
+            color: theme.colors.skin,
+            height: 1,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _EmailInput(),
+                _PasswordInput(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: AppButton.primary(
+                    text: 'Login',
+                    elevation: 5,
+                    backgroundColor: theme.colors.sunrise,
+                  ),
+                ),
+                _SignUpButton(),
+                const SizedBox(height: 25),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _SocialLoginButtonGroup extends StatelessWidget {
+  const _SocialLoginButtonGroup({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppButton.secondary(
+            text: 'Continue with Google',
+            leadingWidget:
+                SvgPicture.asset('assets/google_logo.svg', height: 30),
+            backgroundColor: Colors.white,
+          ),
+          const SizedBox(height: 8),
+          AppButton.secondary(
+            text: 'Continue with Facebook',
+            backgroundColor: Colors.white,
+            leadingWidget:
+                SvgPicture.asset('assets/facebook_logo.svg', height: 30),
+          ),
+        ],
       ),
     );
   }
