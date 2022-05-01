@@ -7,12 +7,14 @@ class AppText extends StatelessWidget {
     this.text, {
     Key? key,
     this.color,
+    this.textDecoration,
     required this.enumStyle,
   }) : super(key: key);
 
   final String text;
   final StyleEnum enumStyle;
   final Color? color;
+  final TextDecoration? textDecoration;
 
   factory AppText.h0(
     String text, {
@@ -56,16 +58,26 @@ class AppText extends StatelessWidget {
     String text, {
     Key? key,
     Color? color,
+    TextDecoration? textDecoration,
   }) {
-    return AppText._(text, key: key, color: color, enumStyle: StyleEnum.p2);
+    return AppText._(text,
+        key: key,
+        color: color,
+        textDecoration: textDecoration,
+        enumStyle: StyleEnum.p2);
   }
 
   factory AppText.p3(
     String text, {
     Key? key,
     Color? color,
+    TextDecoration? textDecoration,
   }) {
-    return AppText._(text, key: key, color: color, enumStyle: StyleEnum.p3);
+    return AppText._(text,
+        key: key,
+        color: color,
+        textDecoration: textDecoration,
+        enumStyle: StyleEnum.p3);
   }
   factory AppText.p4(
     String text, {
@@ -118,6 +130,7 @@ class AppText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _style = styleOf(context, enumStyle);
-    return Text(text, style: _style!.copyWith(color: color));
+    return Text(text,
+        style: _style!.copyWith(color: color, decoration: textDecoration));
   }
 }

@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:theme/src/data/typography_data.dart';
 import 'package:theme/src/theme_resolver.dart';
+import 'package:theme/src/widgets/app_text.dart';
 
 class AppInput extends StatelessWidget {
-  const AppInput.primary(
-      {Key? key,
-      required this.hintText,
-      this.icon,
-      this.obscureText = false,
-      this.showHiddenInput})
-      : super(key: key);
+  const AppInput.primary({
+    Key? key,
+    required this.hintText,
+    required this.onChanged,
+    this.icon,
+    this.obscureText = false,
+    this.showHiddenInput,
+    this.keyboardType,
+  }) : super(key: key);
 
   final IconData? icon;
   final String hintText;
   final bool obscureText;
   final VoidCallback? showHiddenInput;
+  final Function(String)? onChanged;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     final theme = ThemeResolver.of(context);
     return TextField(
+      onChanged: onChanged,
+      keyboardType: keyboardType,
       obscureText: obscureText,
       style: TypographyData.main(theme.colors)
           .titleLarge
@@ -44,14 +51,8 @@ class AppInput extends StatelessWidget {
           suffix: (showHiddenInput != null)
               ? GestureDetector(
                   onTap: showHiddenInput,
-                  child: Text(
-                    'Show',
-                    style: TypographyData.main(theme.colors)
-                        .titleSmall
-                        .copyWith(
-                            color: theme.colors.eclipse,
-                            decoration: TextDecoration.underline),
-                  ),
+                  child: AppText.p3("Show",
+                      textDecoration: TextDecoration.underline),
                 )
               : null,
           border: OutlineInputBorder(

@@ -6,9 +6,11 @@ class AppButton extends StatelessWidget {
       {Key? key,
       required String text,
       required Color backgroundColor,
+      required VoidCallback onPressed,
       this.elevation = 0,
       this.leadingWidget})
       : _text = text,
+        _onPressed = onPressed,
         _height = 60,
         _backgroundColor = backgroundColor,
         _borderRadius = BorderRadius.circular(8.0),
@@ -18,9 +20,11 @@ class AppButton extends StatelessWidget {
       {Key? key,
       required String text,
       required Color backgroundColor,
+      required VoidCallback onPressed,
       this.elevation = 0,
       this.leadingWidget})
       : _text = text,
+        _onPressed = onPressed,
         _height = 50,
         _backgroundColor = backgroundColor,
         _borderRadius = BorderRadius.circular(12.0),
@@ -30,6 +34,7 @@ class AppButton extends StatelessWidget {
   final Color _backgroundColor;
   final double _height;
   final BorderRadiusGeometry _borderRadius;
+  final VoidCallback _onPressed;
 
   final double? elevation;
   final Widget? leadingWidget;
@@ -37,7 +42,7 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: _onPressed,
       child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
