@@ -12,6 +12,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ThemeResolver.of(context);
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.status.isSubmissionFailure) {
@@ -27,12 +28,11 @@ class LoginForm extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
-        children: const [
-          Spacer(),
-          _SocialLoginButtonGroup(),
-          SizedBox(height: 25),
-          _CredentialsLoginFormGroup(),
-          SizedBox(height: 8),
+        children: [
+          const Spacer(),
+          const _SocialLoginButtonGroup(),
+          SizedBox(height: theme.sizes.m),
+          const _CredentialsLoginFormGroup(),
         ],
       ),
     );
@@ -46,18 +46,18 @@ class _CredentialsLoginFormGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = ThemeResolver.of(context);
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+          topLeft: Radius.circular(theme.sizes.l),
+          topRight: Radius.circular(theme.sizes.l),
         ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
+            padding: EdgeInsets.symmetric(vertical: theme.sizes.m),
             child: AppText.p3('Login with email'),
           ),
           Container(
@@ -66,14 +66,14 @@ class _CredentialsLoginFormGroup extends StatelessWidget {
             height: 1,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: theme.sizes.l),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 _EmailInput(),
                 _PasswordInput(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: theme.sizes.l),
                   child: AppButton.primary(
                     text: 'Login',
                     elevation: 5,
@@ -81,7 +81,7 @@ class _CredentialsLoginFormGroup extends StatelessWidget {
                   ),
                 ),
                 _SignUpButton(),
-                const SizedBox(height: 25),
+                SizedBox(height: theme.sizes.xl),
               ],
             ),
           )
@@ -96,23 +96,28 @@ class _SocialLoginButtonGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ThemeResolver.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: theme.sizes.m),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           AppButton.secondary(
             text: 'Continue with Google',
-            leadingWidget:
-                SvgPicture.asset('assets/google_logo.svg', height: 30),
+            leadingWidget: SvgPicture.asset(
+              'assets/google_logo.svg',
+              height: theme.sizes.xl,
+            ),
             backgroundColor: Colors.white,
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: theme.sizes.s),
           AppButton.secondary(
             text: 'Continue with Facebook',
             backgroundColor: Colors.white,
-            leadingWidget:
-                SvgPicture.asset('assets/facebook_logo.svg', height: 30),
+            leadingWidget: SvgPicture.asset(
+              'assets/facebook_logo.svg',
+              height: theme.sizes.xl,
+            ),
           ),
         ],
       ),
