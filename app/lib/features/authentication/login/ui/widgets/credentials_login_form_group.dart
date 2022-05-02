@@ -171,6 +171,7 @@ class _SignupText extends StatelessWidget {
       key: const Key('loginForm_createAccount_flatButton'),
       onTap: () => context.push('/signup'),
       child: RichText(
+        key: const Key('loginForm_createAccount_flatButton'),
         text: TextSpan(
           text: "Don't have an account?",
           style: AppText.styleOf(context, StyleEnum.p3),
