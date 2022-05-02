@@ -70,6 +70,7 @@ class _EmailInput extends StatelessWidget {
           hintText: 'Email',
           onChanged: (email) => context.read<LoginCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next,
         );
       },
     );
@@ -106,6 +107,7 @@ class _PasswordInputState extends State<_PasswordInput> {
           obscureText: _obscureText,
           showHiddenInput: _toggle,
           keyboardType: TextInputType.visiblePassword,
+          textInputAction: TextInputAction.next,
           onChanged: (password) =>
               context.read<LoginCubit>().passwordChanged(password),
         );

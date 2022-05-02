@@ -24,24 +24,23 @@ class LoginForm extends StatelessWidget {
             );
         }
       },
-      child: Builder(
-        builder: (context) {
-          return CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const SocialLoginButtonGroup(),
-                    SizedBox(height: theme.sizes.m),
-                    const CredentialsLoginFormGroup(),
-                  ],
+      child: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const SizedBox(
+                  height: 50,
                 ),
-              )
-            ],
-          );
-        },
+                const SocialLoginButtonGroup(),
+                SizedBox(height: theme.sizes.m),
+                const CredentialsLoginFormGroup(),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

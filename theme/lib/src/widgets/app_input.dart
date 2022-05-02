@@ -12,6 +12,7 @@ class AppInput extends StatelessWidget {
     this.obscureText = false,
     this.showHiddenInput,
     this.keyboardType,
+    this.textInputAction,
   }) : super(key: key);
 
   final IconData? icon;
@@ -20,6 +21,7 @@ class AppInput extends StatelessWidget {
   final VoidCallback? showHiddenInput;
   final Function(String)? onChanged;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,9 @@ class AppInput extends StatelessWidget {
     return TextField(
       onChanged: onChanged,
       keyboardType: keyboardType,
+      autofillHints: const [AutofillHints.email],
       obscureText: obscureText,
+      textInputAction: textInputAction,
       style: TypographyData.main(theme.colors)
           .titleLarge
           .copyWith(color: theme.colors.sunrise),
