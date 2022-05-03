@@ -3,7 +3,7 @@ import 'package:theme/src/data/typography_data.dart';
 import 'package:theme/src/theme_resolver.dart';
 import 'package:theme/src/widgets/app_text.dart';
 
-class AppInput extends StatelessWidget {
+class AppInput extends StatefulWidget {
   const AppInput.primary({
     Key? key,
     required this.hintText,
@@ -24,14 +24,33 @@ class AppInput extends StatelessWidget {
   final TextInputAction? textInputAction;
 
   @override
+  State<AppInput> createState() => _AppInputState();
+}
+
+class _AppInputState extends State<AppInput> {
+  String textBeingTyped = '';
+  bool get inputIsFilled => textBeingTyped.isNotEmpty;
+
+  void remember(String text) {
+    setState(() {
+      textBeingTyped = text;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = ThemeResolver.of(context);
     return TextField(
-      onChanged: onChanged,
-      keyboardType: keyboardType,
+      onChanged: (str) {
+        if (widget.onChanged != null) {
+          widget.onChanged!(str);
+        }
+        remember(str);
+      },
+      keyboardType: widget.keyboardType,
       autofillHints: const [AutofillHints.email],
-      obscureText: obscureText,
-      textInputAction: textInputAction,
+      obscureText: widget.obscureText,
+      textInputAction: widget.textInputAction,
       style: TypographyData.main(theme.colors)
           .titleLarge
           .copyWith(color: theme.colors.sunrise),
@@ -39,22 +58,24 @@ class AppInput extends StatelessWidget {
       decoration: InputDecoration(
           fillColor: theme.colors.lightSkin,
           filled: true,
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: TypographyData.main(theme.colors)
-              .titleMedium
+              .titleSmall
               .copyWith(color: theme.colors.eclipse.withOpacity(0.5)),
-          prefixIcon: icon != null
+          prefixIcon: widget.icon != null
               ? Padding(
                   padding: EdgeInsets.symmetric(horizontal: theme.sizes.m),
                   child: Icon(
-                    icon,
-                    color: theme.colors.sunrise,
+                    widget.icon,
+                    color: inputIsFilled
+                        ? theme.colors.sunrise
+                        : theme.colors.eclipse.withOpacity(0.5),
                   ),
                 )
               : null,
-          suffix: (showHiddenInput != null)
+          suffix: (widget.showHiddenInput != null)
               ? GestureDetector(
-                  onTap: showHiddenInput,
+                  onTap: widget.showHiddenInput,
                   child: AppText.p3("Show",
                       textDecoration: TextDecoration.underline),
                 )
