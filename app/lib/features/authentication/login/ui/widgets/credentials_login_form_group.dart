@@ -68,6 +68,7 @@ class _EmailInput extends StatelessWidget {
           key: const Key('loginForm_emailInput_textField'),
           icon: Icons.email_outlined,
           hintText: 'Email',
+          errorText: state.email.invalid ? 'invalid email' : null,
           onChanged: (email) => context.read<LoginCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
