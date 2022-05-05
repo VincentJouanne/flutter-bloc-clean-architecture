@@ -111,6 +111,7 @@ class _PasswordInputState extends State<_PasswordInput> {
           textInputAction: TextInputAction.next,
           onChanged: (password) =>
               context.read<LoginCubit>().passwordChanged(password),
+          errorText: state.password.invalid ? 'invalid password' : null,
         );
       },
     );
