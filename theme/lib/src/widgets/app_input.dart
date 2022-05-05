@@ -34,8 +34,11 @@ class AppInput extends StatefulWidget {
 
 class _AppInputState extends State<AppInput> {
   Timer? _debounce;
-  bool showErrorTooltip = false;
   String textBeingTyped = '';
+  bool showErrorTooltip = false;
+
+  final FocusNode _focusNode = FocusNode();
+  final TextEditingController _controller = TextEditingController();
 
   bool get inputIsFilled => textBeingTyped.isNotEmpty;
   bool get inputIsInvalid => widget.errorText != null;
@@ -53,12 +56,28 @@ class _AppInputState extends State<AppInput> {
       showErrorTooltip = false;
     });
     _debounce = Timer(_debounceDuration, () {
-      if (inputIsInvalid) {
-        setState(() {
-          showErrorTooltip = true;
-        });
-        return;
-      }
+      setState(() {
+        showErrorTooltip = inputIsInvalid;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _focusNode.removeListener(_onFocusChange);
+    _focusNode.dispose();
+  }
+
+  void _onFocusChange() {
+    setState(() {
+      showErrorTooltip = !_focusNode.hasFocus;
     });
   }
 
@@ -67,6 +86,8 @@ class _AppInputState extends State<AppInput> {
     final theme = ThemeResolver.of(context);
     return Stack(clipBehavior: Clip.none, children: [
       TextField(
+        focusNode: _focusNode,
+        controller: _controller,
         onChanged: (str) {
           if (widget.onChanged != null) {
             widget.onChanged!(str);
@@ -114,7 +135,8 @@ class _AppInputState extends State<AppInput> {
           ),
         ),
       ),
-      if (showErrorTooltip && inputIsFilled) _ErrorTooltip(widget: widget),
+      if (showErrorTooltip && inputIsFilled && _focusNode.hasFocus)
+        _ErrorTooltip(widget: widget),
     ]);
   }
 }
