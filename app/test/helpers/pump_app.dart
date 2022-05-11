@@ -5,22 +5,26 @@ import 'package:flutter_bloc_clean_architecture/features/app/bloc/app_bloc.dart'
 import 'package:flutter_bloc_clean_architecture/features/app/ui/routing/router.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meta/meta.dart';
+import 'package:theme/theme.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp({String? initialLocation}) async {
     return pumpWidget(
-      BlocProvider(
-        create: (_) => AppBloc(
-          getIt(),
-        ),
-        child: Builder(
-          builder: (context) {
-            final _appRouter = router(context, initialLocation);
-            return MaterialApp.router(
-              routerDelegate: _appRouter.routerDelegate,
-              routeInformationParser: _appRouter.routeInformationParser,
-            );
-          },
+      ThemeResolver(
+        data: ThemeDataContainer.main(),
+        child: BlocProvider(
+          create: (_) => AppBloc(
+            getIt(),
+          ),
+          child: Builder(
+            builder: (context) {
+              final _appRouter = router(context, initialLocation);
+              return MaterialApp.router(
+                routerDelegate: _appRouter.routerDelegate,
+                routeInformationParser: _appRouter.routeInformationParser,
+              );
+            },
+          ),
         ),
       ),
     );
