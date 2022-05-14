@@ -129,20 +129,19 @@ class _LoginButton extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return state.status.isSubmissionInProgress
-            ? const CircularProgressIndicator()
-            : Padding(
-                padding: EdgeInsets.symmetric(vertical: theme.sizes.l),
-                child: AppButton.primary(
-                  key: const Key('loginForm_continue_raisedButton'),
-                  text: 'Login',
-                  elevation: 5,
-                  backgroundColor: theme.colors.sunrise,
-                  onPressed: state.status.isValidated
-                      ? () => context.read<LoginCubit>().logInWithCredentials()
-                      : () {},
-                ),
-              );
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: theme.sizes.l),
+          child: AppButton.primary(
+            key: const Key('loginForm_continue_raisedButton'),
+            text: 'Login',
+            elevation: 5,
+            isLoading: state.status.isSubmissionInProgress,
+            backgroundColor: theme.colors.sunrise,
+            onPressed: state.status.isValidated
+                ? () => context.read<LoginCubit>().logInWithCredentials()
+                : () {},
+          ),
+        );
       },
     );
   }
